@@ -1,0 +1,24 @@
+[project]
+name = "cbia-build-ledger"
+version = "0.2.0"
+description = "CBIA build ledger: constraints/syllabus -> schemas -> material (auditable, in-repo)."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "jsonschema>=4.23.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0.0",
+  "ruff>=0.5.0",
+  "pyright>=1.1.380",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.pyright]
+pythonVersion = "3.11"
+typeCheckingMode = "basic"
