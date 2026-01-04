@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CBIA Content Block (legacy ssot-input/content/*.json)",
+  "type": "object",
+  "required": [
+    "block_id",
+    "unit_id",
+    "kind",
+    "body"
+  ],
+  "properties": {
+    "block_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "unit_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "theory",
+        "drill",
+        "drills",
+        "practice",
+        "lab",
+        "quiz",
+        "exam",
+        "notes"
+      ]
+    },
+    "status": {
+      "type": "string"
+    },
+    "source_ref": {
+      "type": "object"
+    },
+    "title": {
+      "type": "string"
+    },
+    "estimation": {
+      "type": "object"
+    },
+    "drill_prompts": {
+      "type": "array"
+    },
+    "notes_for_observer": {
+      "type": "string"
+    },
+    "body": {
+      "type": "string",
+      "minLength": 1
+    },
+    "meta": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}
