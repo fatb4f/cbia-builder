@@ -1,0 +1,22 @@
+{
+  "id": "inf1250-m2-t4",
+  "module": "M2",
+  "tp": "TP2",
+  "title": "Complexity Intuition",
+  "intent": "Compare algorithms using qualitative growth-rate reasoning.",
+  "body": "Complexity provides a way to reason about how an algorithm scales as input size grows. Time complexity estimates how the number of operations increases, while space complexity estimates memory usage. In INF1250, the goal is qualitative comparison rather than formal proofs.\n\nGrowth rates are the key idea. Constant-time behavior does not depend on input size. Linear growth increases proportionally with input size. Quadratic growth often results from nested iteration, and exponential growth quickly becomes impractical. When comparing algorithms, the one with the slower growth rate is generally preferable for large inputs.\n\nComplexity concerns scaling, not raw speed. An algorithm that is fast for small inputs may fail when inputs grow. Conversely, a slightly slower algorithm with better scaling may be superior in practice. Trade-offs also exist: reducing time complexity may increase space usage.\n\nThe important skill is recognizing which parts of an algorithm dominate growth and choosing a design that scales acceptably.",
+  "takeaway": "Choose designs with acceptable growth behavior.",
+  "key_terms": [
+    "time complexity",
+    "space complexity",
+    "growth rate"
+  ],
+  "examples": [],
+  "meta": {
+    "version": "0.1.0",
+    "created": "2026-01-06",
+    "last_updated": "2026-01-06",
+    "source": "INF1250 syllabus / feuille de route (TP2)",
+    "notes": "Generated via cbia-builder workflow"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "inf1250-m2-t2",
+  "module": "M2",
+  "tp": "TP2",
+  "title": "Control Flow & Abstraction",
+  "intent": "Identify control structures and place abstraction boundaries using functions.",
+  "body": "Control flow describes the order in which instructions are executed. There are three fundamental control structures: sequence, selection, and iteration. Sequence executes steps in a fixed order. Selection chooses between alternatives based on a condition. Iteration repeats a block of steps while a condition holds. Together, these are sufficient to express any algorithm.\n\nAbstraction is the practice of hiding internal details behind a boundary. Functions are the primary abstraction mechanism. A function defines a contract through its inputs and outputs while concealing how the result is produced. This allows a programmer to reason locally: if the contract is trusted, the internal steps do not need to be reconsidered.\n\nGood abstraction aligns with problem decomposition. Each function should solve one sub-problem and avoid depending on hidden external state. Clear control boundaries reduce unintended interactions and make algorithms easier to test and modify. They also support reuse, since a well-defined function can be applied in multiple contexts.\n\nTypical mistakes include functions that are too large, control flow that depends on implicit state, and duplicated logic that should have been abstracted. These issues increase complexity without increasing capability.",
+  "takeaway": "Use clear control primitives and small abstractions.",
+  "key_terms": [
+    "sequence",
+    "selection",
+    "iteration",
+    "abstraction"
+  ],
+  "examples": [],
+  "meta": {
+    "version": "0.1.0",
+    "created": "2026-01-06",
+    "last_updated": "2026-01-06",
+    "source": "INF1250 syllabus / feuille de route (TP2)",
+    "notes": "Generated via cbia-builder workflow"
+  }
+}
