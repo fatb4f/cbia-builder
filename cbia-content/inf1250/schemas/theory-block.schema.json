@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/cbia/inf1250/theory-block.schema.json",
+  "title": "INF1250 Theory Block",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "module",
+    "tp",
+    "title",
+    "intent",
+    "body",
+    "takeaway",
+    "meta"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Stable identifier. Suggested: inf1250-m2-t1, inf1250-m2-t2, etc.",
+      "pattern": "^inf1250-m\\d+-t\\d+$"
+    },
+    "module": {
+      "type": "string",
+      "enum": [
+        "M1",
+        "M2",
+        "M3",
+        "M4",
+        "M5"
+      ],
+      "description": "INF1250 module number."
+    },
+    "tp": {
+      "type": "string",
+      "enum": [
+        "TP1",
+        "TP2",
+        "TP3"
+      ],
+      "description": "Target graded work alignment."
+    },
+    "title": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 120
+    },
+    "intent": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 240,
+      "description": "One sentence: what the learner should be able to do after this block."
+    },
+    "body": {
+      "type": "string",
+      "minLength": 800,
+      "maxLength": 2200,
+      "description": "Main exposition. Target 200\u2013300 words (~1000\u20131700 chars). No markdown tables."
+    },
+    "takeaway": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 200,
+      "description": "1\u20132 lines. The crisp rule-of-thumb."
+    },
+    "key_terms": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 2,
+        "maxLength": 40
+      },
+      "minItems": 0,
+      "maxItems": 12,
+      "description": "Optional glossary list."
+    },
+    "examples": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 10,
+        "maxLength": 400
+      },
+      "minItems": 0,
+      "maxItems": 6,
+      "description": "Optional short examples (plain text)."
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "created",
+        "last_updated",
+        "source",
+        "notes"
+      ],
+      "properties": {
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        },
+        "created": {
+          "type": "string",
+          "format": "date"
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date"
+        },
+        "source": {
+          "type": "string",
+          "description": "Authority reference, e.g., 'INF1250 syllabus/feuille de route'."
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 800
+        }
+      }
+    }
+  }
+}
