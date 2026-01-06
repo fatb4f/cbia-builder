@@ -1,0 +1,16 @@
+[project]
+name = "inf1250-workbench"
+version = "0.1.0"
+description = "INF1250 operational workbench (DuckDB + Jupyter + 3P/ACS lens)"
+requires-python = ">=3.10"
+dependencies = [
+  "duckdb>=0.10",
+  "ipykernel",
+  "jupytext",
+]
+
+[tool.jupytext]
+formats = "md"
+
+[tool.setuptools.packages.find]
+where = ["src"]
