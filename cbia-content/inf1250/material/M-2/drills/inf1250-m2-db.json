@@ -1,0 +1,34 @@
+{
+  "id": "inf1250-m2-db",
+  "module": "M2",
+  "tp": "TP2",
+  "drill_type": "B",
+  "prompt": "Classify each problem by its dominant control flow.",
+  "expected_action": "Choose the control structure and justify briefly.",
+  "evaluation_rule": "Classification matches execution pattern.",
+  "items": [
+    {
+      "id": "i1",
+      "stem": "Processing each element of a list once."
+    },
+    {
+      "id": "i2",
+      "stem": "Choosing an action based on a menu option."
+    },
+    {
+      "id": "i3",
+      "stem": "Applying a rule repeatedly until stable."
+    },
+    {
+      "id": "i4",
+      "stem": "Running setup then cleanup steps."
+    }
+  ],
+  "meta": {
+    "version": "0.1.0",
+    "created": "2026-01-06",
+    "last_updated": "2026-01-06",
+    "source": "INF1250 M2 drills (TP2)",
+    "notes": "Generated via cbia-builder workflow"
+  }
+}
