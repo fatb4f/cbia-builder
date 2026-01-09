@@ -1,0 +1,22 @@
+{
+  "schema_version": "0.1.0",
+  "kernel_id": "pre-gen-control-kernel",
+  "frozen": false,
+  "authority": {
+    "ledger": "authority.ledger.json"
+  },
+  "inference_policy": {
+    "policy": "inference_policy.json"
+  },
+  "dependency_contract": {
+    "contract": "dependency.contract.json"
+  },
+  "execution_dag": {
+    "graph": "execution_dag.json"
+  },
+  "checksums": {
+    "authority": "TO_BE_COMPUTED",
+    "objectives": "TO_BE_COMPUTED",
+    "dag": "TO_BE_COMPUTED"
+  }
+}
