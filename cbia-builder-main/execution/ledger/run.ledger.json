@@ -1,0 +1,201 @@
+[
+  {
+    "entry_id": "LEDGER-0001",
+    "phase": "PRE_GEN",
+    "artifact_id": "",
+    "artifact_path": "",
+    "hash": "",
+    "objective_ids": [],
+    "authority_ids": [],
+    "policy_bundle_hash": "cb8bc43387d77b7adcb4183a12270ebc8f171fdd4732ebd534c952382ef4d7c1",
+    "timestamp": "2026-01-09T19:35:25.665649Z"
+  },
+  {
+    "entry_id": "LEDGER-0002",
+    "phase": "OPA_GATE",
+    "artifact_id": "",
+    "artifact_path": "",
+    "hash": "",
+    "objective_ids": [],
+    "authority_ids": [],
+    "policy_bundle_hash": "cb8bc43387d77b7adcb4183a12270ebc8f171fdd4732ebd534c952382ef4d7c1",
+    "timestamp": "2026-01-09T19:35:25.665660Z"
+  },
+  {
+    "entry_id": "LEDGER-0003",
+    "phase": "GEN",
+    "artifact_id": "tp1.extracted.json",
+    "artifact_path": "artifacts/inf1220/tp1/tp1.extracted.json",
+    "hash": "9a6590aeb2429933a1f51a2b92dd6c12f96beaf7639b8ffbcc1d70dfc13c9a89",
+    "objective_ids": [
+      "INF1220-TP1-O-01",
+      "INF1220-TP1-O-02",
+      "INF1220-TP1-O-03",
+      "INF1220-TP1-O-04",
+      "INF1220-TP1-O-05"
+    ],
+    "authority_ids": [
+      "INF1220-TP1"
+    ],
+    "policy_bundle_hash": "cb8bc43387d77b7adcb4183a12270ebc8f171fdd4732ebd534c952382ef4d7c1",
+    "timestamp": "2026-01-09T19:35:25.668887Z"
+  },
+  {
+    "entry_id": "LEDGER-0004",
+    "phase": "GEN",
+    "artifact_id": "objectives.dag.json",
+    "artifact_path": "artifacts/inf1220/tp1/objectives.dag.json",
+    "hash": "6f34fe10b86eb891d4819398ce62c5c4f480c449f20cb089388bd9f58c806c08",
+    "objective_ids": [
+      "INF1220-TP1-O-01",
+      "INF1220-TP1-O-02",
+      "INF1220-TP1-O-03",
+      "INF1220-TP1-O-04",
+      "INF1220-TP1-O-05"
+    ],
+    "authority_ids": [
+      "INF1220-TP1"
+    ],
+    "policy_bundle_hash": "cb8bc43387d77b7adcb4183a12270ebc8f171fdd4732ebd534c952382ef4d7c1",
+    "timestamp": "2026-01-09T19:35:25.669247Z"
+  },
+  {
+    "entry_id": "LEDGER-0005",
+    "phase": "GEN",
+    "artifact_id": "theory_blocks.json",
+    "artifact_path": "artifacts/inf1220/tp1/theory_blocks.json",
+    "hash": "abff1b7ba4af106ca1d49e54e8a4c243b9cd57dd4f33009284ab3e80cb014960",
+    "objective_ids": [
+      "INF1220-TP1-O-01",
+      "INF1220-TP1-O-02",
+      "INF1220-TP1-O-03",
+      "INF1220-TP1-O-04",
+      "INF1220-TP1-O-05"
+    ],
+    "authority_ids": [
+      "INF1220-TP1"
+    ],
+    "policy_bundle_hash": "cb8bc43387d77b7adcb4183a12270ebc8f171fdd4732ebd534c952382ef4d7c1",
+    "timestamp": "2026-01-09T19:35:25.670041Z"
+  },
+  {
+    "entry_id": "LEDGER-0006",
+    "phase": "GEN",
+    "artifact_id": "drill_blocks.json",
+    "artifact_path": "artifacts/inf1220/tp1/drill_blocks.json",
+    "hash": "30af32d34b7448be806a8a66f2ac37f8da938682c7be7e80fb289969d02e548c",
+    "objective_ids": [
+      "INF1220-TP1-O-01",
+      "INF1220-TP1-O-02",
+      "INF1220-TP1-O-03",
+      "INF1220-TP1-O-04",
+      "INF1220-TP1-O-05"
+    ],
+    "authority_ids": [
+      "INF1220-TP1"
+    ],
+    "policy_bundle_hash": "cb8bc43387d77b7adcb4183a12270ebc8f171fdd4732ebd534c952382ef4d7c1",
+    "timestamp": "2026-01-09T19:35:25.671873Z"
+  },
+  {
+    "entry_id": "LEDGER-0007",
+    "phase": "GEN",
+    "artifact_id": "learning_flow.json",
+    "artifact_path": "artifacts/inf1220/tp1/learning_flow.json",
+    "hash": "95f8f4776817a5b99f9f8900a6d9dc2731b18542e9e33d5f4bbb375f0c5819d2",
+    "objective_ids": [
+      "INF1220-TP1-O-01",
+      "INF1220-TP1-O-02",
+      "INF1220-TP1-O-03",
+      "INF1220-TP1-O-04",
+      "INF1220-TP1-O-05"
+    ],
+    "authority_ids": [
+      "INF1220-TP1"
+    ],
+    "policy_bundle_hash": "cb8bc43387d77b7adcb4183a12270ebc8f171fdd4732ebd534c952382ef4d7c1",
+    "timestamp": "2026-01-09T19:35:25.673060Z"
+  },
+  {
+    "entry_id": "LEDGER-0008",
+    "phase": "GEN",
+    "artifact_id": "eval_summary.json",
+    "artifact_path": "artifacts/inf1220/tp1/eval_summary.json",
+    "hash": "f65368797c038c49659a01b9e5f11f6bc0c92c28e669a80dc5147157e3288442",
+    "objective_ids": [
+      "INF1220-TP1-O-01",
+      "INF1220-TP1-O-02",
+      "INF1220-TP1-O-03",
+      "INF1220-TP1-O-04",
+      "INF1220-TP1-O-05"
+    ],
+    "authority_ids": [
+      "INF1220-TP1"
+    ],
+    "policy_bundle_hash": "cb8bc43387d77b7adcb4183a12270ebc8f171fdd4732ebd534c952382ef4d7c1",
+    "timestamp": "2026-01-09T19:35:25.677804Z"
+  },
+  {
+    "entry_id": "LEDGER-0009",
+    "phase": "GEN",
+    "artifact_id": "material.manifest.json",
+    "artifact_path": "artifacts/inf1220/tp1/material.manifest.json",
+    "hash": "ae595421f424a53a37486362096f8216bdb59b8f2e811d6c18340aa2f9420ace",
+    "objective_ids": [
+      "INF1220-TP1-O-01",
+      "INF1220-TP1-O-02",
+      "INF1220-TP1-O-03",
+      "INF1220-TP1-O-04",
+      "INF1220-TP1-O-05"
+    ],
+    "authority_ids": [
+      "INF1220-TP1"
+    ],
+    "policy_bundle_hash": "cb8bc43387d77b7adcb4183a12270ebc8f171fdd4732ebd534c952382ef4d7c1",
+    "timestamp": "2026-01-09T19:35:25.678308Z"
+  },
+  {
+    "entry_id": "LEDGER-0010",
+    "phase": "STRUCT",
+    "artifact_id": "",
+    "artifact_path": "",
+    "hash": "",
+    "objective_ids": [],
+    "authority_ids": [],
+    "policy_bundle_hash": "cb8bc43387d77b7adcb4183a12270ebc8f171fdd4732ebd534c952382ef4d7c1",
+    "timestamp": "2026-01-09T19:35:25.678317Z"
+  },
+  {
+    "entry_id": "LEDGER-0011",
+    "phase": "SELECT",
+    "artifact_id": "",
+    "artifact_path": "",
+    "hash": "",
+    "objective_ids": [],
+    "authority_ids": [],
+    "policy_bundle_hash": "cb8bc43387d77b7adcb4183a12270ebc8f171fdd4732ebd534c952382ef4d7c1",
+    "timestamp": "2026-01-09T19:35:25.678320Z"
+  },
+  {
+    "entry_id": "LEDGER-0012",
+    "phase": "FLOW",
+    "artifact_id": "",
+    "artifact_path": "",
+    "hash": "",
+    "objective_ids": [],
+    "authority_ids": [],
+    "policy_bundle_hash": "cb8bc43387d77b7adcb4183a12270ebc8f171fdd4732ebd534c952382ef4d7c1",
+    "timestamp": "2026-01-09T19:35:25.678323Z"
+  },
+  {
+    "entry_id": "LEDGER-0013",
+    "phase": "EVAL",
+    "artifact_id": "audit_bundle",
+    "artifact_path": "",
+    "hash": "",
+    "objective_ids": [],
+    "authority_ids": [],
+    "policy_bundle_hash": "cb8bc43387d77b7adcb4183a12270ebc8f171fdd4732ebd534c952382ef4d7c1",
+    "timestamp": "2026-01-09T19:35:25.680670Z"
+  }
+]

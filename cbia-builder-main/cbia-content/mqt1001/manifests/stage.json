@@ -1,0 +1,15 @@
+{
+  "project": "cbia-content/mqt1001",
+  "stage": "syllabus",
+  "inputs": {},
+  "outputs": {},
+  "provenance": {
+    "constraints_commit": null,
+    "schemas_commit": null,
+    "material_commit": null,
+    "generated_by": "gpt",
+    "generated_on": "2026-01-04"
+  },
+  "notes": "Update this manifest when the stage output is produced and reviewed.",
+  "references": {}
+}

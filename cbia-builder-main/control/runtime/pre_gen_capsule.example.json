@@ -1,0 +1,13 @@
+{
+  "schema_version": "0.1.0",
+  "kernel_decision": "ALLOW",
+  "control_state_hash": "sha256:EXAMPLE",
+  "policy_bundle_hash": "sha256:EXAMPLE",
+  "authority_set_hashes": {
+    "AUTH-SYLLABUS-INF1220": "sha256:EXAMPLE",
+    "AUTH-TP1-STATEMENT": "sha256:EXAMPLE"
+  },
+  "dependency_graph_hash": "sha256:EXAMPLE",
+  "execution_dag_hash": "sha256:EXAMPLE",
+  "timestamp": "2026-01-09T17:56:57.844013Z"
+}

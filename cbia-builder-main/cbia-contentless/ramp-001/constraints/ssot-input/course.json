@@ -1,0 +1,566 @@
+{
+  "id": "python-cbia-contract-pipelines-v1",
+  "title": "Python CBIA Contract Pipelines v1",
+  "version": "0.1.0",
+  "modules": [
+    {
+      "id": "co-01-python-core-for-operators",
+      "title": "Write and refactor small, deterministic pipeline operators with clean module boundaries and safe IO at edges.",
+      "meta": {
+        "source_id": "CO-01-python-core-for-operators",
+        "tags": [
+          "dev_practice",
+          "python_core",
+          "operators",
+          "io_edges"
+        ],
+        "theory_objectives": [
+          {
+            "id": "TH-01-operator-shape",
+            "description": "Define the operator as a deterministic transformation with explicit inputs/outputs and isolated side effects.",
+            "tags": [
+              "theory",
+              "architecture",
+              "operators",
+              "determinism"
+            ]
+          },
+          {
+            "id": "TH-02-io-boundary-rule",
+            "description": "Establish boundary discipline: parse/validate at edges; keep core logic pure.",
+            "tags": [
+              "theory",
+              "boundaries",
+              "io_edges",
+              "purity"
+            ]
+          }
+        ],
+        "skill_objectives": [
+          {
+            "sequence": 1,
+            "id": "SK-01-functions-and-return-types",
+            "description": "Implement 3 pure functions (transform/filter/aggregate) each with explicit type annotations.",
+            "artefact": "src/operators/core_ops.py",
+            "tags": [
+              "skill",
+              "python_core",
+              "typing",
+              "functions"
+            ]
+          },
+          {
+            "sequence": 2,
+            "id": "SK-02-exceptions-as-boundary",
+            "description": "Add explicit error handling at the boundary (raise domain errors; do not swallow exceptions).",
+            "artefact": "src/operators/errors.py",
+            "tags": [
+              "skill",
+              "exceptions",
+              "boundaries",
+              "dev_practice"
+            ]
+          },
+          {
+            "sequence": 3,
+            "id": "SK-03-safe-file-io",
+            "description": "Read/write JSON from disk using context managers; keep parsing in a single boundary function.",
+            "artefact": "src/operators/io_json.py",
+            "tags": [
+              "skill",
+              "file_io",
+              "json",
+              "with_context"
+            ]
+          },
+          {
+            "sequence": 4,
+            "id": "SK-04-modules-packages",
+            "description": "Split operators into a package with explicit exports and no circular imports.",
+            "artefact": "src/operators/__init__.py",
+            "tags": [
+              "skill",
+              "modules",
+              "packages",
+              "architecture"
+            ]
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "kind": "markdown",
+          "template": "module_readme",
+          "out": "modules/co-01-python-core-for-operators/README.md"
+        },
+        {
+          "kind": "index",
+          "template": "project_index",
+          "out": "INDEX.md"
+        }
+      ]
+    },
+    {
+      "id": "co-02-typed-boundary-contracts",
+      "title": "Encode stable operator/pipeline contracts using modern typing primitives to reduce ambiguity and enable static checking.",
+      "meta": {
+        "source_id": "CO-02-typed-boundary-contracts",
+        "tags": [
+          "theory",
+          "typing",
+          "contracts",
+          "dev_practice"
+        ],
+        "theory_objectives": [
+          {
+            "id": "TH-03-types-as-contracts",
+            "description": "Treat types as executable documentation for boundary contracts; constrain shapes before validation.",
+            "tags": [
+              "theory",
+              "typing",
+              "contracts"
+            ]
+          },
+          {
+            "id": "TH-04-structural-interfaces",
+            "description": "Prefer structural typing (Protocols) for operator interfaces over inheritance.",
+            "tags": [
+              "theory",
+              "protocols",
+              "interfaces"
+            ]
+          }
+        ],
+        "skill_objectives": [
+          {
+            "sequence": 1,
+            "id": "SK-05-typeddict-input-shape",
+            "description": "Define a TypedDict for raw external input and use it in a parser signature.",
+            "artefact": "src/schemas/raw_input.py",
+            "tags": [
+              "skill",
+              "TypedDict",
+              "typing",
+              "boundaries"
+            ]
+          },
+          {
+            "sequence": 2,
+            "id": "SK-06-literal-enums",
+            "description": "Use Literal to constrain a field/value used for routing or mode selection.",
+            "artefact": "src/schemas/literals.py",
+            "tags": [
+              "skill",
+              "Literal",
+              "typing",
+              "routing"
+            ]
+          },
+          {
+            "sequence": 3,
+            "id": "SK-07-protocol-operator-interface",
+            "description": "Define a Protocol for an operator callable and type-check two implementations.",
+            "artefact": "src/operators/protocols.py",
+            "tags": [
+              "skill",
+              "Protocol",
+              "typing",
+              "operators"
+            ]
+          },
+          {
+            "sequence": 4,
+            "id": "SK-08-annotated-metadata",
+            "description": "Introduce Annotated for a constrained value (e.g., non-empty string) as metadata used downstream.",
+            "artefact": "src/schemas/annotated.py",
+            "tags": [
+              "skill",
+              "Annotated",
+              "typing",
+              "constraints"
+            ]
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "kind": "markdown",
+          "template": "module_readme",
+          "out": "modules/co-02-typed-boundary-contracts/README.md"
+        }
+      ]
+    },
+    {
+      "id": "co-03-pydantic-contract-layer",
+      "title": "Use Pydantic v2 models as the primary contract layer for validation, parsing, and serialization across pipeline boundaries.",
+      "meta": {
+        "source_id": "CO-03-pydantic-contract-layer",
+        "tags": [
+          "pydantic",
+          "contracts",
+          "validation",
+          "serialization"
+        ],
+        "theory_objectives": [
+          {
+            "id": "TH-05-boundary-validation",
+            "description": "Validate at boundaries; inside the pipeline operate on already-validated models.",
+            "tags": [
+              "theory",
+              "pydantic",
+              "boundaries",
+              "correctness"
+            ]
+          },
+          {
+            "id": "TH-06-serialization-is-contract",
+            "description": "Treat model_dump output as a stable API between stages and for generated artifacts.",
+            "tags": [
+              "theory",
+              "serialization",
+              "contracts",
+              "ssot"
+            ]
+          }
+        ],
+        "skill_objectives": [
+          {
+            "sequence": 1,
+            "id": "SK-09-basemodel-minimal",
+            "description": "Create a BaseModel with field constraints; validate valid/invalid inputs.",
+            "artefact": "src/schemas/models.py",
+            "tags": [
+              "skill",
+              "pydantic",
+              "BaseModel",
+              "validation"
+            ]
+          },
+          {
+            "sequence": 2,
+            "id": "SK-10-model-validate",
+            "description": "Parse raw dict input using model_validate and return a model from the boundary function.",
+            "artefact": "src/operators/parse.py",
+            "tags": [
+              "skill",
+              "model_validate",
+              "boundaries",
+              "operators"
+            ]
+          },
+          {
+            "sequence": 3,
+            "id": "SK-11-model-dump",
+            "description": "Serialize models using model_dump in a pipeline output function; ensure stable keys.",
+            "artefact": "src/operators/serialize.py",
+            "tags": [
+              "skill",
+              "model_dump",
+              "serialization",
+              "contracts"
+            ]
+          },
+          {
+            "sequence": 4,
+            "id": "SK-12-custom-validator",
+            "description": "Implement a custom validator for a cross-field invariant (e.g., start <= end).",
+            "artefact": "src/schemas/validators.py",
+            "tags": [
+              "skill",
+              "validators",
+              "invariants",
+              "pydantic"
+            ]
+          },
+          {
+            "sequence": 5,
+            "id": "SK-13-settings-model",
+            "description": "Define a BaseSettings model for pipeline configuration and load it via environment variables.",
+            "artefact": "src/schemas/settings.py",
+            "tags": [
+              "skill",
+              "BaseSettings",
+              "config",
+              "dev_practice"
+            ]
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "kind": "markdown",
+          "template": "module_readme",
+          "out": "modules/co-03-pydantic-contract-layer/README.md"
+        }
+      ]
+    },
+    {
+      "id": "co-04-repo-structure-and-import-discipline",
+      "title": "Maintain scalable project structure with explicit boundaries: schemas, operators, pipelines, CLI.",
+      "meta": {
+        "source_id": "CO-04-repo-structure-and-import-discipline",
+        "tags": [
+          "architecture",
+          "repo_layout",
+          "imports",
+          "dev_practice"
+        ],
+        "theory_objectives": [
+          {
+            "id": "TH-07-import-direction",
+            "description": "Define import direction: CLI → pipelines → operators → schemas (no reverse dependencies).",
+            "tags": [
+              "theory",
+              "architecture",
+              "imports",
+              "boundaries"
+            ]
+          }
+        ],
+        "skill_objectives": [
+          {
+            "sequence": 1,
+            "id": "SK-14-src-layout",
+            "description": "Implement src/ layout with packages for schemas/operators/pipelines/cli and a single public entry module.",
+            "artefact": "src/ (package tree)",
+            "tags": [
+              "skill",
+              "repo_layout",
+              "packages",
+              "architecture"
+            ]
+          },
+          {
+            "sequence": 2,
+            "id": "SK-15-boundary-contracts-compiled",
+            "description": "Run mypy and eliminate Any leakage across module boundaries.",
+            "artefact": "mypy config + passing check",
+            "tags": [
+              "skill",
+              "mypy",
+              "typing",
+              "dev_practice"
+            ]
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "kind": "markdown",
+          "template": "module_readme",
+          "out": "modules/co-04-repo-structure-and-import-discipline/README.md"
+        }
+      ]
+    },
+    {
+      "id": "co-05-cli-orchestration-with-typer",
+      "title": "Expose pipelines through a deterministic CLI interface that orchestrates validated stages without embedding logic.",
+      "meta": {
+        "source_id": "CO-05-cli-orchestration-with-typer",
+        "tags": [
+          "cli",
+          "typer",
+          "orchestration",
+          "dev_practice"
+        ],
+        "theory_objectives": [
+          {
+            "id": "TH-08-thin-cli",
+            "description": "CLI is a control surface: it wires stages, loads settings, and handles IO; it does not contain transformation logic.",
+            "tags": [
+              "theory",
+              "cli",
+              "architecture",
+              "boundaries"
+            ]
+          }
+        ],
+        "skill_objectives": [
+          {
+            "sequence": 1,
+            "id": "SK-16-typer-single-command",
+            "description": "Create a Typer command that loads settings, parses inputs, runs pipeline, writes outputs.",
+            "artefact": "src/cli/app.py",
+            "tags": [
+              "skill",
+              "typer",
+              "cli",
+              "orchestration"
+            ]
+          },
+          {
+            "sequence": 2,
+            "id": "SK-17-subcommands",
+            "description": "Add subcommands for validate-only, render-only, and full-run.",
+            "artefact": "src/cli/commands.py",
+            "tags": [
+              "skill",
+              "typer",
+              "subcommands",
+              "workflow"
+            ]
+          },
+          {
+            "sequence": 3,
+            "id": "SK-18-exit-codes",
+            "description": "Implement explicit exit codes for validation failure vs runtime failure.",
+            "artefact": "src/cli/errors.py",
+            "tags": [
+              "skill",
+              "cli",
+              "errors",
+              "dev_practice"
+            ]
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "kind": "markdown",
+          "template": "module_readme",
+          "out": "modules/co-05-cli-orchestration-with-typer/README.md"
+        }
+      ]
+    },
+    {
+      "id": "co-06-content-generation-layer",
+      "title": "Generate Markdown artifacts from validated SSOT models using deterministic templates and stable rendering rules.",
+      "meta": {
+        "source_id": "CO-06-content-generation-layer",
+        "tags": [
+          "content_gen",
+          "jinja2",
+          "markdown",
+          "ssot"
+        ],
+        "theory_objectives": [
+          {
+            "id": "TH-09-rendering-rules",
+            "description": "Rendering is a pure function from validated models to artifacts; templates are part of the contract.",
+            "tags": [
+              "theory",
+              "rendering",
+              "determinism",
+              "contracts"
+            ]
+          }
+        ],
+        "skill_objectives": [
+          {
+            "sequence": 1,
+            "id": "SK-19-jinja2-template",
+            "description": "Create a Jinja2 template that renders a model into Markdown.",
+            "artefact": "templates/doc.md.j2",
+            "tags": [
+              "skill",
+              "jinja2",
+              "templates",
+              "markdown"
+            ]
+          },
+          {
+            "sequence": 2,
+            "id": "SK-20-render-function",
+            "description": "Implement a render(model) -> str function; no IO inside.",
+            "artefact": "src/pipelines/render.py",
+            "tags": [
+              "skill",
+              "rendering",
+              "purity",
+              "operators"
+            ]
+          },
+          {
+            "sequence": 3,
+            "id": "SK-21-jupytext-pairing",
+            "description": "Add Jupytext pairing config for Markdown ↔ notebook workflow (optional layer).",
+            "artefact": "jupytext config file",
+            "tags": [
+              "skill",
+              "jupytext",
+              "workflow",
+              "content_gen"
+            ]
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "kind": "markdown",
+          "template": "module_readme",
+          "out": "modules/co-06-content-generation-layer/README.md"
+        }
+      ]
+    },
+    {
+      "id": "co-07-verification-and-tooling",
+      "title": "Enforce correctness and stability with ruff, mypy, and pytest; verify contracts and transformations.",
+      "meta": {
+        "source_id": "CO-07-verification-and-tooling",
+        "tags": [
+          "verification",
+          "testing",
+          "tooling",
+          "dev_practice"
+        ],
+        "theory_objectives": [
+          {
+            "id": "TH-10-contract-tests",
+            "description": "Tests validate contracts and transformations at boundaries; avoid mock-heavy internal testing.",
+            "tags": [
+              "theory",
+              "testing",
+              "contracts",
+              "boundaries"
+            ]
+          }
+        ],
+        "skill_objectives": [
+          {
+            "sequence": 1,
+            "id": "SK-22-pytest-contract-tests",
+            "description": "Write pytest tests that validate model parsing, invariants, and render determinism.",
+            "artefact": "tests/test_contracts.py",
+            "tags": [
+              "skill",
+              "pytest",
+              "contracts",
+              "rendering"
+            ]
+          },
+          {
+            "sequence": 2,
+            "id": "SK-23-ruff-enforcement",
+            "description": "Configure and run ruff; ensure clean linting and formatting.",
+            "artefact": "pyproject.toml (ruff section)",
+            "tags": [
+              "skill",
+              "ruff",
+              "tooling",
+              "dev_practice"
+            ]
+          },
+          {
+            "sequence": 3,
+            "id": "SK-24-mypy-enforcement",
+            "description": "Configure mypy strictness appropriate for the repo and ensure it passes.",
+            "artefact": "pyproject.toml (mypy section)",
+            "tags": [
+              "skill",
+              "mypy",
+              "tooling",
+              "typing"
+            ]
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "kind": "markdown",
+          "template": "module_readme",
+          "out": "modules/co-07-verification-and-tooling/README.md"
+        }
+      ]
+    }
+  ]
+}

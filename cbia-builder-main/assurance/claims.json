@@ -1,0 +1,33 @@
+{
+  "schema_version": "0.1.0",
+  "claims": [
+    {
+      "claim_id": "AUTH_IMMUTABLE",
+      "description": "Authority inputs are frozen and unchanged for the duration of the run."
+    },
+    {
+      "claim_id": "CLOSED_WORLD_AUTHORITY",
+      "description": "No artifact, objective, or phase depends on unstated authority."
+    },
+    {
+      "claim_id": "DEPENDENCY_CLOSURE",
+      "description": "Every artifact traces to authority via objectives."
+    },
+    {
+      "claim_id": "INFERENCE_COMPLIANCE",
+      "description": "All inferred objectives comply with the declared inference policy."
+    },
+    {
+      "claim_id": "PHASE_ADMISSIBILITY",
+      "description": "All phases executed only when their contractual preconditions were met."
+    },
+    {
+      "claim_id": "ARTIFACT_INTEGRITY",
+      "description": "Recorded artifact hashes match on-disk artifacts."
+    },
+    {
+      "claim_id": "DETERMINISTIC_REPLAY",
+      "description": "Given identical inputs and policy bundles, the run is reproducible."
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "block_id": "co-07-verification-and-tooling-theory",
+  "unit_id": "co-07-verification-and-tooling",
+  "kind": "theory",
+  "status": "stub",
+  "source_refs": [
+    "pytest-docs",
+    "ruff-docs"
+  ],
+  "minimal_lecture": {
+    "text": "STUB: 100–250 word micro-lecture grounded in source_refs.",
+    "key_points": [
+      "STUB: Key point 1",
+      "STUB: Key point 2",
+      "STUB: Key point 3"
+    ],
+    "pitfalls": [
+      "STUB: Pitfall 1",
+      "STUB: Pitfall 2"
+    ]
+  },
+  "capability": "You can now Explain and apply the core idioms for this unit in small, testable code. (co-07-verification-and-tooling).",
+  "constraints": [
+    "Use only referenced material in source_refs.",
+    "Prefer standard library and explicit interfaces.",
+    "Keep implementations small and testable."
+  ],
+  "verification": [
+    "STUB: Command(s) or tests that demonstrate correctness."
+  ],
+  "drill_prompts": [
+    "STUB: Micro-drill 1 (inputs → outputs).",
+    "STUB: Micro-drill 2 (inputs → outputs).",
+    "STUB: Micro-drill 3 (inputs → outputs)."
+  ],
+  "notes_for_observer": "Track time-to-first-correct, error types, and whether the intended idiom was used.",
+  "body": "# co-07-verification-and-tooling — theory\n\n**Status:** stub\n\n## Minimal lecture\n\n- See `minimal_lecture` field (stub).\n\n## Drills\n\n- See `drill_prompts` field (stub).\n",
+  "meta": {
+    "generated_by": "build-green-stub",
+    "generated_at": "2025-12-24T00:00:00Z"
+  }
+}
