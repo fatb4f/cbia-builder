@@ -1,3 +1,50 @@
+# Execution Mode: GPT-Executed Pipeline
+
+This repository defines a **GPT-executed pipeline**.
+
+- GPT performs **operator actions** (extract, infer, propose, generate).
+- Repository scripts are **reference contracts**: they define ordering, invariants, schemas, and acceptance criteria.
+- **No GPT output is authoritative by default**. Promotion to authoritative artifacts occurs only after **STRUCT acceptance**.
+
+## Canonical Pipeline DAG
+
+All execution MUST follow the DAG:
+
+- DAG graph: `control/pipeline/inf1220_tp1_gpt_exec.dag.mmd`
+- DAG IO map: `control/pipeline/inf1220_tp1_gpt_exec.dag.map.json`
+- Mode marker: `control/pipeline/mode.json`
+
+## Artifact Tiers (Mandatory)
+
+### Operator Outputs (GPT)
+- Suffix: `.gpt.json`
+- Never authoritative
+- Never ledger-eligible
+
+### Authoritative Artifacts (Accepted)
+- No `.gpt` suffix
+- Produced only after STRUCT validation/materialization
+- Hashable + ledger-eligible
+
+## Scope Discipline (INF1220 TP1)
+
+Default slice is **TP1-only**:
+- Objectives must be evidenced by TP1.
+- Syllabus-derived but unassessed items go to **review buffers** and are not promoted without a review decision.
+- Depth halos are **reference-only**; drills must not require halo knowledge.
+
+## Evidence Rule
+
+If an objective depends on source text, GPT must emit **evidence pointers** to a trusted capsule.
+A trusted step materializes:
+- locator
+- quote span
+- hash references
+
+No evidence → no objective.
+
+---
+
 # agents.md — Hard-Gated Generative Execution (PRE-GEN Capsule + OPA)
 
 ## Execution Mode: GPT-Executed Pipeline

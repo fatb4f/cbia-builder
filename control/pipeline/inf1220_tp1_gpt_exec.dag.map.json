@@ -2,104 +2,49 @@
   "dag_id": "inf1220-tp1-gpt-exec/v0.1.0",
   "mode": "GPT_EXECUTION",
   "nodes": {
-    "A0": {
-      "requires": [],
-      "emits": [
-        "control/pipeline/mode.json"
-      ]
-    },
-    "A1": {
-      "requires": [
-        "cbia-content/inf1220/syllabus/**"
-      ],
-      "emits": [
-        "control/kernel/authority.ledger.json"
-      ]
-    },
-    "A2": {
-      "requires": [
-        "control/kernel/authority.ledger.json"
-      ],
-      "emits": [
-        "control/runtime/scope.json"
-      ]
-    },
-    "A3": {
-      "requires": [
-        "control/runtime/scope.json"
-      ],
-      "emits": [
-        "cbia-content/inf1220/objectives/review.syllabus_inferred.json"
-      ]
-    },
+    "A0": { "requires": [], "emits": ["control/pipeline/mode.json"] },
+    "A1": { "requires": ["cbia-content/inf1220/syllabus/**"], "emits": ["control/kernel/authority.ledger.json"] },
+    "A2": { "requires": ["control/kernel/authority.ledger.json"], "emits": ["control/runtime/scope.json"] },
+    "A3": { "requires": ["control/runtime/scope.json"], "emits": ["cbia-content/inf1220/objectives/review.syllabus_inferred.json"] },
+
     "B0": {
-      "requires": [
-        "control/runtime/scope.json",
-        "control/runtime/tp1_extraction_capsule.json"
-      ],
-      "emits": [
-        "cbia-content/inf1220/objectives/tp1.extracted.gpt.json"
-      ]
+      "requires": ["control/runtime/scope.json", "control/runtime/tp1_extraction_capsule.json"],
+      "emits": ["cbia-content/inf1220/objectives/tp1.extracted.gpt.json"]
     },
     "B1": {
-      "requires": [
-        "cbia-content/inf1220/objectives/tp1.extracted.gpt.json",
-        "control/runtime/tp1_extraction_capsule.json"
-      ],
+      "requires": ["cbia-content/inf1220/objectives/tp1.extracted.gpt.json", "control/runtime/tp1_extraction_capsule.json"],
       "emits": [
         "cbia-content/inf1220/objectives/tp1.extracted.json",
         "cbia-content/inf1220/objectives/struct.tp1_extraction.json"
       ]
     },
     "B2": {
-      "requires": [
-        "cbia-content/inf1220/objectives/tp1.extracted.json",
-        "cbia-content/inf1220/syllabus/**"
-      ],
-      "emits": [
-        "cbia-content/inf1220/objectives/mapping.tp1_to_syllabus.json"
-      ]
+      "requires": ["cbia-content/inf1220/objectives/tp1.extracted.json", "cbia-content/inf1220/syllabus/**"],
+      "emits": ["cbia-content/inf1220/objectives/mapping.tp1_to_syllabus.json"]
     },
     "B3": {
-      "requires": [
-        "cbia-content/inf1220/objectives/mapping.tp1_to_syllabus.json"
-      ],
-      "emits": [
-        "cbia-content/inf1220/objectives/review.syllabus_unpromoted.json"
-      ]
+      "requires": ["cbia-content/inf1220/objectives/mapping.tp1_to_syllabus.json"],
+      "emits": ["cbia-content/inf1220/objectives/review.syllabus_unpromoted.json"]
     },
     "B4": {
-      "requires": [
-        "cbia-content/inf1220/objectives/review.syllabus_unpromoted.json",
-        "cbia-content/inf1220/objectives/tp1.extracted.json"
-      ],
-      "emits": [
-        "cbia-content/inf1220/objectives/review.unpromoted.closest.json"
-      ]
+      "requires": ["cbia-content/inf1220/objectives/review.syllabus_unpromoted.json", "cbia-content/inf1220/objectives/tp1.extracted.json"],
+      "emits": ["cbia-content/inf1220/objectives/review.unpromoted.closest.json"]
     },
+
     "C0": {
-      "requires": [
-        "cbia-content/inf1220/objectives/tp1.extracted.json",
-        "cbia-content/inf1220/objectives/review.unpromoted.closest.json"
-      ],
-      "emits": [
-        "cbia-content/inf1220/objectives/depth_halo.gpt.json"
-      ]
+      "requires": ["cbia-content/inf1220/objectives/tp1.extracted.json", "cbia-content/inf1220/objectives/review.unpromoted.closest.json"],
+      "emits": ["cbia-content/inf1220/objectives/depth_halo.gpt.json"]
     },
     "C1": {
-      "requires": [
-        "cbia-content/inf1220/objectives/depth_halo.gpt.json"
-      ],
+      "requires": ["cbia-content/inf1220/objectives/depth_halo.gpt.json"],
       "emits": [
         "cbia-content/inf1220/objectives/depth_halo.json",
         "cbia-content/inf1220/objectives/struct.depth_halo.json"
       ]
     },
+
     "D0": {
-      "requires": [
-        "cbia-content/inf1220/objectives/tp1.extracted.json",
-        "cbia-content/inf1220/objectives/depth_halo.json"
-      ],
+      "requires": ["cbia-content/inf1220/objectives/tp1.extracted.json", "cbia-content/inf1220/objectives/depth_halo.json"],
       "emits": [
         "cbia-content/inf1220/material/tp1/theory/theory_blocks.gpt.json",
         "cbia-content/inf1220/material/tp1/drills/drill_blocks.gpt.json"
@@ -127,15 +72,6 @@
         "cbia-content/inf1220/material/tp1/flow/learning_flow.json",
         "cbia-content/inf1220/material/tp1/eval/eval_summary.json",
         "cbia-content/inf1220/material/tp1/manifest/material.manifest.json"
-      ]
-    },
-    "E0": {
-      "requires": [
-        "control/pipeline/inf1220_tp1_gpt_exec.dag.mmd",
-        "control/pipeline/inf1220_tp1_gpt_exec.dag.map.json"
-      ],
-      "emits": [
-        "control/pipeline/ops_readiness.md"
       ]
     }
   }
