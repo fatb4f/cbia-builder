@@ -1,0 +1,6 @@
+{
+  "mode": "GPT_EXECUTION",
+  "scripts_are_reference": true,
+  "operator_is_untrusted": true,
+  "authoritative_via_struct_only": true
+}

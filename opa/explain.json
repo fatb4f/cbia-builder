@@ -1,0 +1,12 @@
+{
+  "explain": [
+    "auth_immutable: PASS",
+    "closed_world_authority: PASS",
+    "dependency_closure: PASS",
+    "inference_compliance: PASS",
+    "phase_admissibility: PASS",
+    "artifact_integrity: PASS",
+    "deterministic_replay: PASS"
+  ],
+  "allow": true
+}
