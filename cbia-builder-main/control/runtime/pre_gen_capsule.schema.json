@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cbia-builder.local/schemas/pre_gen_capsule.schema.json",
+  "title": "pre_gen_capsule.json",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "kernel_decision",
+    "control_state_hash",
+    "policy_bundle_hash",
+    "authority_set_hashes",
+    "timestamp"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^0\\.1\\.0$"
+    },
+    "kernel_decision": {
+      "type": "string",
+      "enum": [
+        "ALLOW",
+        "DENY"
+      ]
+    },
+    "control_state_hash": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 256
+    },
+    "policy_bundle_hash": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 256
+    },
+    "authority_set_hashes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 8,
+        "maxLength": 256
+      }
+    },
+    "dependency_graph_hash": {
+      "type": "string",
+      "minLength": 0,
+      "maxLength": 256
+    },
+    "execution_dag_hash": {
+      "type": "string",
+      "minLength": 0,
+      "maxLength": 256
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

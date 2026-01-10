@@ -1,0 +1,39 @@
+{
+  "block_id": "co-03-pydantic-contract-layer-theory",
+  "unit_id": "co-03-pydantic-contract-layer",
+  "kind": "theory",
+  "status": "stub",
+  "source_refs": [
+    "pydantic-v2-docs"
+  ],
+  "minimal_lecture": {
+    "text": "STUB: Add a 100–250 word micro-lecture grounded in pydantic-v2-docs covering boundary validation and stable serialization as contract outputs.",
+    "key_points": [
+      "STUB: Validate at boundaries; operate on validated models internally.",
+      "STUB: model_validate turns raw input into a contract type.",
+      "STUB: model_dump output is a stable boundary payload."
+    ],
+    "pitfalls": [
+      "STUB: Mixing validation inside core transforms.",
+      "STUB: Treating serialization as incidental rather than contract output."
+    ]
+  },
+  "capability": "Explain boundary validation and contract-serialization for Pydantic models used in deterministic pipelines.",
+  "constraints": [
+    "No framework/web examples.",
+    "No v1 compatibility material.",
+    "No solution code; only conceptual guidance and verification criteria."
+  ],
+  "verification": [
+    "Content includes explicit source_refs and does not introduce unreferenced claims.",
+    "Text stays within unit scope and does not add new objectives."
+  ],
+  "drill_prompts": [
+    "Write a short checklist for where validation must occur in a schema→operator→pipeline→CLI architecture."
+  ],
+  "body": "# STUB\n\nThis block is a stub. Generate it using the prompt contract and cite `pydantic-v2-docs`.\n",
+  "meta": {
+    "prompt_contract": "llm_generation_prompt_contract_v1",
+    "scope_guard": "no_new_concepts_without_refs"
+  }
+}
