@@ -1,0 +1,12 @@
+{
+  "schema_version": "0.1.0",
+  "kernel_decision": "ALLOW",
+  "control_state_hash": "1f46f41497d222fd6a008a005d9bb42916e29199bc530e54d9f9ca998737adda",
+  "policy_bundle_hash": "cb8bc43387d77b7adcb4183a12270ebc8f171fdd4732ebd534c952382ef4d7c1",
+  "authority_set_hashes": {
+    "INF1220-TP1": "f2d5a6ae9f54d4faf76efa0f81f33a8a4710760a1af9d3d18bf5a520cd2e1d07",
+    "INF1220-JAVA-PASAPAS": "311b9b6b8404b9e9c9d125f851008d0b4f4d4653efde8558892fe99fc19c0293",
+    "INF1220-JAVA-ONLINE-INTRO": "b836bbdd55bfddf9ef64309249ebdedab1b9b92aa9ec7ecc6dbd03d4673b1f69"
+  },
+  "timestamp": "2026-01-09T19:35:25.665193Z"
+}
