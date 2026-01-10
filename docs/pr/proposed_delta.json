@@ -1,0 +1,53 @@
+{
+  "pr_id": "single-pr",
+  "scope": [
+    "Add PR governance (contract + CI guard)",
+    "Add evidence DAG + contracts and gate in assurance.allow",
+    "Add promotion DAG + contracts and gate in assurance.allow",
+    "Optional diff classification gate"
+  ],
+  "non_goals": [
+    "No weakening of existing allow semantics",
+    "No replacement of runner with stubs",
+    "No deletion of protected files"
+  ],
+  "phases": [
+    {
+      "name": "phase-0",
+      "intent": "authority + schema tightening",
+      "protected_files_unchanged": true
+    },
+    {
+      "name": "phase-1",
+      "intent": "evidence DAG introduction",
+      "adds_only": true
+    },
+    {
+      "name": "phase-2",
+      "intent": "promotion DAG introduction",
+      "adds_only": true
+    },
+    {
+      "name": "phase-3",
+      "intent": "diff classification",
+      "optional": true
+    },
+    {
+      "name": "phase-4",
+      "intent": "integration + proofs",
+      "must_produce_evidence": true
+    }
+  ],
+  "expected_outputs": [
+    "opa/decision.json",
+    "opa/explain.json",
+    "execution/ledger/run.ledger.json",
+    "execution/ledger/artifact_hashes.json"
+  ],
+  "review_capsule": {
+    "plant_controller_diagram": "docs/pr/plant_controller.mmd",
+    "proposed_delta_manifest": "docs/pr/proposed_delta.json",
+    "review_log": "docs/pr/PR_LOG.md",
+    "commit_plan": "docs/pr/COMMIT_PLAN.md"
+  }
+}

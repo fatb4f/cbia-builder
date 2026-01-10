@@ -58,6 +58,107 @@ def sha256_dir(path: str) -> str:
 def now_utc() -> str:
     return datetime.datetime.utcnow().isoformat() + "Z"
 
+
+
+def _maybe_read_json(p: str, default: Any) -> Any:
+    try:
+        if os.path.exists(p):
+            return _read_json(p)
+    except Exception:
+        return default
+    return default
+
+def _sha256_path_if_exists(p: str) -> str:
+    if os.path.exists(p) and os.path.isfile(p):
+        return sha256_file(p)
+    if os.path.exists(p) and os.path.isdir(p):
+        return sha256_dir(p)
+    return ""
+
+def materialize_evidence(pre_gen_capsule: Dict[str, Any], run_ledger: List[Dict[str, Any]], artifact_hashes: Dict[str,str]) -> Dict[str, Any]:
+    """Materialize audit/evidence artifacts deterministically.
+
+    Emits under execution/evidence/:
+      - materialization.ledger.json
+      - checks.json
+      - bundle.manifest.json
+
+    This is supervisory evidence *about* the run, not an execution controller.
+    """
+    dag_path = os.path.join(ROOT, "control/evidence/evidence_dag.json")
+    contract_path = os.path.join(ROOT, "control/evidence/evidence.contract.json")
+
+    if not os.path.exists(dag_path) or not os.path.exists(contract_path):
+        return {"required": False, "completed": True, "dag_hash": ""}
+
+    contract = _read_json(contract_path)
+    required = bool(contract.get("requires_execution_dag", False))
+
+    evidence_root = os.path.join(ROOT, "execution/evidence")
+    os.makedirs(evidence_root, exist_ok=True)
+
+    checks = {
+        "pre_gen_capsule_present": pre_gen_capsule is not None,
+        "run_ledger_nonempty": bool(run_ledger),
+        "artifact_hashes_nonempty": bool(artifact_hashes),
+        "opa_outputs_present": os.path.exists(os.path.join(ROOT, "opa/decision.json")) and os.path.exists(os.path.join(ROOT, "opa/explain.json")),
+    }
+
+    mat_ledger = {
+        "phase": "EVIDENCE",
+        "timestamp": now_utc(),
+        "policy_bundle_hash": pre_gen_capsule.get("policy_bundle_hash"),
+        "pre_gen_capsule_hash": _sha256_bytes(json.dumps(pre_gen_capsule, sort_keys=True).encode("utf-8")),
+        "opa_decision_hash": _sha256_path_if_exists(os.path.join(ROOT, "opa/decision.json")),
+        "opa_explain_hash": _sha256_path_if_exists(os.path.join(ROOT, "opa/explain.json")),
+        "run_ledger_hash": _sha256_bytes(json.dumps(run_ledger, sort_keys=True).encode("utf-8")),
+        "artifact_hashes_hash": _sha256_bytes(json.dumps(artifact_hashes, sort_keys=True).encode("utf-8")),
+        "evidence_dag_hash": sha256_file(dag_path),
+    }
+
+    manifest = {
+        "schema_version": "0.1.0",
+        "inputs": {
+            "control/evidence/evidence_dag.json": mat_ledger["evidence_dag_hash"],
+            "control/evidence/evidence.contract.json": sha256_file(contract_path),
+            "control/runtime/pre_gen_capsule.json": mat_ledger["pre_gen_capsule_hash"],
+            "opa/decision.json": mat_ledger["opa_decision_hash"],
+            "opa/explain.json": mat_ledger["opa_explain_hash"],
+        },
+        "outputs": {
+            "execution/evidence/materialization.ledger.json": _sha256_bytes(json.dumps(mat_ledger, sort_keys=True).encode("utf-8")),
+            "execution/evidence/checks.json": _sha256_bytes(json.dumps(checks, sort_keys=True).encode("utf-8")),
+        },
+    }
+
+    _write_json(os.path.join(evidence_root, "materialization.ledger.json"), mat_ledger)
+    _write_json(os.path.join(evidence_root, "checks.json"), checks)
+    _write_json(os.path.join(evidence_root, "bundle.manifest.json"), manifest)
+
+    completed = all(checks.values()) if required else True
+    return {"required": required, "completed": completed, "dag_hash": mat_ledger["evidence_dag_hash"]}
+
+def promotion_state(evidence: Dict[str, Any]) -> Dict[str, Any]:
+    """Compute promotion gating state (optional).
+
+    Promotion is only required when a promotion request exists at:
+      control/runtime/promotion.request.json
+    """
+    req_path = os.path.join(ROOT, "control/runtime/promotion.request.json")
+    dag_path = os.path.join(ROOT, "control/promotion/promotion_dag.json")
+
+    required = os.path.exists(req_path) and os.path.exists(dag_path)
+    if not required:
+        return {"required": False, "completed": True, "dag_hash": ""}
+
+    # Minimal trusted evidence:
+    # - evidence completed
+    # - CI attestation present (if your CI produces it)
+    ci_att = os.path.join(ROOT, "execution/ci/attestation.json")
+    completed = bool(evidence.get("completed")) and os.path.exists(ci_att)
+
+    return {"required": True, "completed": completed, "dag_hash": sha256_file(dag_path)}
+
 def init_ledger(policy_bundle_hash: str) -> List[Dict[str, Any]]:
     return [
         {
@@ -188,33 +289,69 @@ def assurance_eval(input_bundle: Dict[str, Any]) -> Tuple[bool, List[str]]:
         return False, explain
     explain.append("deterministic_replay: PASS")
 
+
+# evidence materialization gate (optional, enforced when input_bundle.evidence.required == True)
+ev = input_bundle.get("evidence", {}) or {}
+if ev.get("required"):
+    if not ev.get("completed"):
+        explain.append("evidence_materialized: FAIL (evidence required but not completed)")
+        return False, explain
+    explain.append("evidence_materialized: PASS")
+else:
+    explain.append("evidence_materialized: SKIP")
+
+# promotion admissibility gate (optional, enforced when input_bundle.promotion.required == True)
+pr = input_bundle.get("promotion", {}) or {}
+if pr.get("required"):
+    if not pr.get("completed"):
+        explain.append("promotion_admissible: FAIL (promotion required but not completed)")
+        return False, explain
+    explain.append("promotion_admissible: PASS")
+else:
+    explain.append("promotion_admissible: SKIP")
+
     return True, explain
 
 def opa_gate(pre_gen_capsule: Dict[str, Any], run_ledger: List[Dict[str, Any]], artifact_hashes: Dict[str,str]) -> None:
+    # Phase A: evaluate baseline assurance invariants (no evidence/promotion enforcement yet)
     input_bundle = {
         "pre_gen_capsule": pre_gen_capsule,
         "authority_ledger": _read_json(os.path.join(ROOT, "control/authority.ledger.json")),
-        "objectives": _read_json(os.path.join(ROOT, "objectives.json")) if os.path.exists(os.path.join(ROOT, "objectives.json")) else [],
-        "dependency_graph": _read_json(os.path.join(ROOT, "dependency.graph.json")) if os.path.exists(os.path.join(ROOT, "dependency.graph.json")) else {},
-        "execution_dag": _read_json(os.path.join(ROOT, "execution_dag.json")) if os.path.exists(os.path.join(ROOT, "execution_dag.json")) else {},
+        "objectives": _read_json(os.path.join(ROOT, "objec...f os.path.exists(os.path.join(ROOT, "objectives.json")) else [],
+        "dependency_graph": _read_json(os.path.join(ROOT, ...ath.exists(os.path.join(ROOT, "dependency.graph.json")) else {},
+        "execution_dag": _read_json(os.path.join(ROOT, "ex...s.path.exists(os.path.join(ROOT, "execution_dag.json")) else {},
         "run_ledger": run_ledger,
         "artifact_hashes": artifact_hashes,
+        # provisional (enforced in Phase B)
+        "evidence": {"required": False, "completed": True, "dag_hash": ""},
+        "promotion": {"required": False, "completed": True, "dag_hash": ""},
     }
     _write_json(os.path.join(ROOT, "opa/input.json"), input_bundle)
 
     allow, explain = assurance_eval(input_bundle)
 
-    decision = {
-        "result": [
-            {"expressions": [{"value": allow}]}
-        ]
-    }
+    # Provisional decision/explain (used as an input to evidence materialization)
+    decision = {"result": [{"expressions": [{"value": allow}]}]}
     _write_json(os.path.join(ROOT, "opa/decision.json"), decision)
     _write_json(os.path.join(ROOT, "opa/explain.json"), {"explain": explain, "allow": allow})
 
+    # Phase B: materialize evidence + compute promotion state, then re-evaluate with supervisory gates enabled
+    evidence = materialize_evidence(pre_gen_capsule, run_ledger, artifact_hashes)
+    promotion = promotion_state(evidence)
+
+    input_bundle["evidence"] = evidence
+    input_bundle["promotion"] = promotion
+    _write_json(os.path.join(ROOT, "opa/input.json"), input_bundle)
+
+    allow2, explain2 = assurance_eval(input_bundle)
+
+    decision2 = {"result": [{"expressions": [{"value": allow2}]}]}
+    _write_json(os.path.join(ROOT, "opa/decision.json"), decision2)
+    _write_json(os.path.join(ROOT, "opa/explain.json"), {"explain": explain2, "allow": allow2})
+
     _write_json(os.path.join(ROOT, "opa/bundle.hash"), {"policy_bundle_hash": pre_gen_capsule["policy_bundle_hash"]})
 
-    if not allow:
+    if not allow2:
         sys.exit("OPA gate denied")
 
 def gen_inf1220_tp1(run_ledger: List[Dict[str, Any]], artifact_hashes: Dict[str,str], policy_bundle_hash: str) -> None:
