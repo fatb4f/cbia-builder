@@ -1,0 +1,12 @@
+{
+  "required_files": [
+    "docs/pr/PR_LOG.md",
+    "docs/pr/COMMIT_PLAN.md",
+    "docs/pr/plant_controller.mmd",
+    "docs/pr/proposed_delta.json"
+  ],
+  "protected_files": [
+    "policy/assurance/assurance.rego",
+    "tools/run_pipeline.py"
+  ]
+}

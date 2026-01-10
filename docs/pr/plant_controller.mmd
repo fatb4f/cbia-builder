@@ -1,0 +1,28 @@
+flowchart LR
+  subgraph Plant[Plant: Repository State]
+    A[authority.ledger.json<br/>schemas/contracts]
+    P[policy/assurance/assurance.rego]
+    R[tools/run_pipeline.py]
+    C[control/* DAGs<br/>evidence/promotion/pr]
+    X[execution/* ledgers<br/>artifact hashes]
+  end
+
+  subgraph Controller[Controllers: Supervisory Gates]
+    G1[PR DAG Guard (CI)<br/>tools/ci/validate_pr_dag.py]
+    G2[OPA PRE-GEN Gate<br/>data.assurance.allow]
+    G3[Promotion Gate<br/>policy/promotion]
+    G4[Diff Classification Gate<br/>path_classification]
+  end
+
+  subgraph Inputs[Inputs / Disturbances]
+    D[PR Diff<br/>files + commit phases]
+    I[OPA input bundle<br/>pre_gen_capsule + ledgers]
+    U[Reviewer intent<br/>scope + rationale]
+  end
+
+  D --> G1 --> Plant
+  D --> G4 --> G1
+  I --> G2 --> Plant
+  Plant --> X --> G2
+  Plant --> G3 --> G2
+  U --> G1
