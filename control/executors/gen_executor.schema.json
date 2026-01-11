@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cbia-builder.local/schemas/gen_executor.schema.json",
+  "title": "GEN executor contract",
+  "$defs": {
+    "config": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "version"],
+      "properties": {
+        "kind": {"type": "string", "enum": ["local", "external"]},
+        "version": {"type": "string"},
+        "command": {
+          "type": "array",
+          "items": {"type": "string"},
+          "minItems": 1
+        },
+        "timeout_s": {"type": "integer", "minimum": 1},
+        "env": {
+          "type": "object",
+          "additionalProperties": {"type": "string"}
+        },
+        "phase_config": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["phase", "outputs"],
+          "properties": {
+            "phase": {"const": "GEN"},
+            "executor_id": {"type": "string"},
+            "outputs": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["outputs_manifest", "execution_report"],
+              "properties": {
+                "outputs_manifest": {"type": "string"},
+                "execution_report": {"type": "string"}
+              }
+            }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"kind": {"const": "external"}}},
+          "then": {"required": ["command"]}
+        }
+      ]
+    },
+    "request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "pre_gen_capsule", "inputs_manifest", "phase_config"],
+      "properties": {
+        "schema_version": {"const": "0.1.0"},
+        "pre_gen_capsule": {"type": "object", "additionalProperties": true},
+        "inputs_manifest": {"type": "object", "additionalProperties": true},
+        "phase_config": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["phase", "outputs"],
+          "properties": {
+            "phase": {"const": "GEN"},
+            "executor_id": {"type": "string"},
+            "outputs": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["outputs_manifest", "execution_report"],
+              "properties": {
+                "outputs_manifest": {"type": "string"},
+                "execution_report": {"type": "string"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "report": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "phase", "artifacts", "tool_versions"],
+      "properties": {
+        "schema_version": {"const": "0.1.0"},
+        "phase": {"const": "GEN"},
+        "artifacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["path", "hash", "bytes"],
+            "properties": {
+              "path": {"type": "string"},
+              "hash": {"type": "string"},
+              "bytes": {"type": "integer", "minimum": 0}
+            }
+          }
+        },
+        "tool_versions": {
+          "type": "object",
+          "additionalProperties": {"type": "string"}
+        }
+      }
+    }
+  }
+}
