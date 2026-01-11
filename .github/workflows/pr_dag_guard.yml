@@ -23,9 +23,27 @@ jobs:
       - name: Dependency smoke test
         run: |
           python tools/ci/dep_smoke_test.py
+      - name: Set BASE_REF for DAG validation
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "BASE_REF=${{ github.event.pull_request.base.sha }}" >> "$GITHUB_ENV"
+          elif [[ "${{ github.event_name }}" == "merge_group" ]]; then
+            echo "BASE_REF=${{ github.event.merge_group.base_sha }}" >> "$GITHUB_ENV"
+          else
+            git fetch origin main --depth=1
+            echo "BASE_REF=origin/main" >> "$GITHUB_ENV"
+          fi
+      - name: Show BASE_REF (diagnostic)
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "BASE_REF=$BASE_REF"
+          git show -s --oneline "$BASE_REF"
       - name: Validate PR DAG / invariants
         env:
-          BASE_REF: origin/main
+          BASE_REF: ${{ env.BASE_REF }}
           HEAD_REF: HEAD
         run: |
           python tools/ci/validate_pr_dag.py
