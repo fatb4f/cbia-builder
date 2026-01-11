@@ -5,6 +5,7 @@ import datetime
 import hashlib
 import json
 import os
+import shutil
 import sys
 from typing import Any, Dict, List, Tuple
 
@@ -26,6 +27,11 @@ def _write_json(path: str, obj: Any) -> None:
 
 def _sha256_bytes(payload: bytes) -> str:
     return hashlib.sha256(payload).hexdigest()
+
+
+def _sha256_json(obj: Any) -> str:
+    blob = json.dumps(obj, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+    return _sha256_bytes(blob.encode("utf-8"))
 
 
 def sha256_file(path: str) -> str:
@@ -315,15 +321,37 @@ def opa_gate(
     input_bundle["promotion"] = promotion
     _write_json(os.path.join(ROOT, "opa/input.json"), input_bundle)
 
-    allow2, explain2 = assurance_eval(input_bundle)
+    bundle_hash = _sha256_json(input_bundle)
+    memo_root = os.path.join(ROOT, "opa/memo", bundle_hash)
+    memo_decision = os.path.join(memo_root, "decision.json")
+    memo_explain = os.path.join(memo_root, "explain.json")
 
-    decision2 = {"result": [{"expressions": [{"value": allow2}]}]}
-    _write_json(os.path.join(ROOT, "opa/decision.json"), decision2)
-    _write_json(os.path.join(ROOT, "opa/explain.json"), {"explain": explain2, "allow": allow2})
+    if os.path.exists(memo_decision) and os.path.exists(memo_explain):
+        shutil.copyfile(memo_decision, os.path.join(ROOT, "opa/decision.json"))
+        shutil.copyfile(memo_explain, os.path.join(ROOT, "opa/explain.json"))
+        decision2 = _read_json(os.path.join(ROOT, "opa/decision.json"))
+        allow2 = (
+            decision2.get("result", [{}])[0]
+            .get("expressions", [{}])[0]
+            .get("value", False)
+        )
+    else:
+        allow2, explain2 = assurance_eval(input_bundle)
+
+        decision2 = {"result": [{"expressions": [{"value": allow2}]}]}
+        _write_json(os.path.join(ROOT, "opa/decision.json"), decision2)
+        _write_json(os.path.join(ROOT, "opa/explain.json"), {"explain": explain2, "allow": allow2})
+
+        os.makedirs(memo_root, exist_ok=True)
+        shutil.copyfile(os.path.join(ROOT, "opa/decision.json"), memo_decision)
+        shutil.copyfile(os.path.join(ROOT, "opa/explain.json"), memo_explain)
 
     _write_json(
         os.path.join(ROOT, "opa/bundle.hash"),
-        {"policy_bundle_hash": pre_gen_capsule["policy_bundle_hash"]},
+        {
+            "opa_input_bundle_hash": bundle_hash,
+            "policy_bundle_hash": pre_gen_capsule["policy_bundle_hash"],
+        },
     )
 
     if not allow2:
