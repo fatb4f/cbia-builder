@@ -16,6 +16,13 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+      - name: Dependency smoke test
+        run: |
+          python tools/ci/dep_smoke_test.py
       - name: Validate PR DAG / invariants
         env:
           BASE_REF: origin/main
@@ -31,6 +38,13 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+      - name: Dependency smoke test
+        run: |
+          python tools/ci/dep_smoke_test.py
       - name: Generate control maps
         run: |
           python tools/gen_control_maps.py
