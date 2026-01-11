@@ -290,6 +290,8 @@ def opa_gate(
     run_ledger: List[Dict[str, Any]],
     artifact_hashes: Dict[str, str],
 ) -> None:
+    evidence = {"required": False, "completed": True, "dag_hash": ""}
+    promotion = {"required": False, "completed": True, "dag_hash": ""}
     input_bundle = {
         "pre_gen_capsule": pre_gen_capsule,
         "authority_ledger": _read_json(os.path.join(ROOT, "control/authority.ledger.json")),
@@ -304,8 +306,12 @@ def opa_gate(
         else {},
         "run_ledger": run_ledger,
         "artifact_hashes": artifact_hashes,
-        "evidence": {"required": False, "completed": True, "dag_hash": ""},
-        "promotion": {"required": False, "completed": True, "dag_hash": ""},
+        "evidence": evidence,
+        "promotion": promotion,
+        "gates": {
+            "evidence_materialized": evidence.get("completed") is True,
+            "promotion_admissible": promotion.get("completed") is True,
+        },
     }
     _write_json(os.path.join(ROOT, "opa/input.json"), input_bundle)
 
@@ -320,6 +326,10 @@ def opa_gate(
 
     input_bundle["evidence"] = evidence
     input_bundle["promotion"] = promotion
+    input_bundle["gates"] = {
+        "evidence_materialized": evidence.get("completed") is True,
+        "promotion_admissible": promotion.get("completed") is True,
+    }
     _write_json(os.path.join(ROOT, "opa/input.json"), input_bundle)
 
     bundle_hash = _sha256_json(input_bundle)
