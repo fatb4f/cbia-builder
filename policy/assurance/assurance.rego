@@ -13,6 +13,10 @@ default allow = false
 # input.artifact_hashes
 ################################################################################
 
+# --- gates (explicit, required) ---
+evidence_materialized := input.gates.evidence_materialized
+promotion_admissible := input.gates.promotion_admissible
+
 # ---------- Authority immutability (hash equality) ----------
 auth_immutable {
   input.pre_gen_capsule.kernel_decision == "ALLOW"
@@ -95,6 +99,8 @@ deterministic_replay {
 }
 
 allow {
+  evidence_materialized == true
+  promotion_admissible == true
   auth_immutable
   closed_world_authority
   dependency_closure
