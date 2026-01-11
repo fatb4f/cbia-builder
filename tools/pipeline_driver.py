@@ -364,7 +364,13 @@ def opa_gate(
         "evidence_materialized": evidence.get("completed") is True,
         "promotion_admissible": promotion.get("completed") is True,
     }
+<<<<<<< HEAD
     _write_json(_output_path("opa/input.json", output_root), input_bundle)
+||||||| 84cc56b
+    _write_json(os.path.join(ROOT, "opa/input.json"), input_bundle)
+=======
+    _write_json(os.path.join(ROOT, "opa/input.json"), input_bundle)
+>>>>>>> origin/main
 
     bundle_hash = _sha256_json(input_bundle)
     memo_root = _output_path(os.path.join("opa/memo", bundle_hash), output_root)

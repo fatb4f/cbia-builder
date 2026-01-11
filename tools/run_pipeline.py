@@ -23,6 +23,7 @@ def assurance_eval(input_bundle: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
+<<<<<<< HEAD
 def opa_gate(
     pre_gen_capsule: Dict[str, Any],
     run_ledger: list[Dict[str, Any]],
@@ -34,6 +35,9 @@ def opa_gate(
     pipeline_driver.opa_gate(pre_gen_capsule, run_ledger, artifact_hashes, *args, **kwargs)
 
 
+||||||| 84cc56b
+=======
+>>>>>>> origin/main
 def main() -> int:
     parser = argparse.ArgumentParser(description="Run the cbia-builder pipeline")
     parser.add_argument("--dry-run", action="store_true", help="Run PRE_GEN + OPA only")
