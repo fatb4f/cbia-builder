@@ -5,6 +5,7 @@
     "docs/pr/plant_controller.mmd",
     "docs/pr/proposed_delta.json"
   ],
+  "pr_log_required": "docs/pr/PR_LOG.md",
   "protected_files": [
     "policy/assurance/assurance.rego",
     "tools/run_pipeline.py"
