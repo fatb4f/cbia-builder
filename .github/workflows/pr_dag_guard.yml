@@ -22,3 +22,18 @@ jobs:
           HEAD_REF: HEAD
         run: |
           python tools/ci/validate_pr_dag.py
+
+  control-map-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Generate control maps
+        run: |
+          python tools/gen_control_maps.py
+      - name: Verify control maps are up to date
+        run: |
+          git diff --exit-code -- control/plant/plant.mmd control/plant/execution_dag.json

@@ -1,0 +1,273 @@
+{
+  "artifacts": [
+    {
+      "hash_required": true,
+      "path": "control/authority.ledger.json",
+      "role": "artifact"
+    },
+    {
+      "hash_required": true,
+      "path": "control/runtime/pre_gen_capsule.json",
+      "role": "artifact"
+    },
+    {
+      "hash_required": true,
+      "path": "control/plant/plant.mmd",
+      "role": "control_map"
+    },
+    {
+      "hash_required": true,
+      "path": "control/plant/execution_dag.json",
+      "role": "control_map"
+    },
+    {
+      "hash_required": true,
+      "path": "execution/ledger/run.ledger.json",
+      "role": "artifact"
+    },
+    {
+      "hash_required": true,
+      "path": "execution/ledger/artifact_hashes.json",
+      "role": "artifact"
+    },
+    {
+      "hash_required": true,
+      "path": "execution/ledger/run.manifest.json",
+      "role": "artifact"
+    },
+    {
+      "hash_required": true,
+      "path": "opa/decision.json",
+      "role": "artifact"
+    },
+    {
+      "hash_required": true,
+      "path": "opa/explain.json",
+      "role": "artifact"
+    },
+    {
+      "hash_required": true,
+      "path": "opa/bundle.hash",
+      "role": "artifact"
+    }
+  ],
+  "determinism": [
+    "utf-8",
+    "indent=2",
+    "sorted_nodes",
+    "sorted_edges",
+    "phase_order:PRE_GEN,GEN,CHECK,REPAIR,PROMOTE",
+    "control_inputs_hash:e3cab4aae412b90e9514024b35cb00c3a544e4557e8eae3146aa4cdb32bb4835",
+    "policy_assurance_hash:cdddb1604fe3aee5479c75342967fc06f383c6ab23c2100743edb620268b9d04",
+    "artifact_paths_hash:d3c949707b28b2be29cdc9776d3155fa565fbe3620ec33855e72e64095a332cb"
+  ],
+  "edges": [
+    {
+      "condition": "kernel_decision == ALLOW",
+      "from": "PRE_GEN",
+      "to": "OPA_DECISION"
+    },
+    {
+      "condition": "allow == true",
+      "from": "OPA_DECISION",
+      "to": "GEN"
+    },
+    {
+      "condition": "artifacts_emitted",
+      "from": "GEN",
+      "to": "SCHEMA_VALIDATION"
+    },
+    {
+      "condition": "schemas_valid",
+      "from": "SCHEMA_VALIDATION",
+      "to": "HASH_RECORDING"
+    },
+    {
+      "condition": "hashes_recorded",
+      "from": "HASH_RECORDING",
+      "to": "CHECK"
+    },
+    {
+      "condition": "checks_pass",
+      "from": "CHECK",
+      "to": "PROMOTE"
+    },
+    {
+      "condition": "checks_fail",
+      "from": "CHECK",
+      "to": "REPAIR"
+    },
+    {
+      "condition": "repairs_applied",
+      "from": "REPAIR",
+      "to": "CHECK"
+    },
+    {
+      "condition": "promotion_request_present",
+      "from": "PROMOTE",
+      "to": "PROMOTION_ALLOW"
+    }
+  ],
+  "nodes": [
+    {
+      "gates": [
+        "OPA_DECISION"
+      ],
+      "id": "PRE_GEN",
+      "inputs": [
+        "control/authority.ledger.json",
+        "policy/assurance"
+      ],
+      "invariants": [
+        "authority_ledger.frozen == true",
+        "kernel_decision == ALLOW"
+      ],
+      "outputs": [
+        "control/runtime/pre_gen_capsule.json"
+      ],
+      "type": "phase"
+    },
+    {
+      "gates": [],
+      "id": "OPA_DECISION",
+      "inputs": [
+        "control/runtime/pre_gen_capsule.json",
+        "control/authority.ledger.json",
+        "objectives.json",
+        "dependency.graph.json",
+        "execution_dag.json",
+        "execution/ledger/run.ledger.json",
+        "execution/ledger/artifact_hashes.json"
+      ],
+      "invariants": [
+        "data.assurance.allow == true"
+      ],
+      "outputs": [
+        "opa/decision.json",
+        "opa/explain.json",
+        "opa/bundle.hash"
+      ],
+      "type": "gate"
+    },
+    {
+      "gates": [
+        "SCHEMA_VALIDATION",
+        "HASH_RECORDING"
+      ],
+      "id": "GEN",
+      "inputs": [
+        "control/runtime/pre_gen_capsule.json"
+      ],
+      "invariants": [
+        "opa.allow == true"
+      ],
+      "outputs": [
+        "execution/ledger/run.ledger.json",
+        "execution/ledger/artifact_hashes.json"
+      ],
+      "type": "phase"
+    },
+    {
+      "gates": [],
+      "id": "SCHEMA_VALIDATION",
+      "inputs": [
+        "execution/ledger/run.ledger.json",
+        "execution/ledger/artifact_hashes.json"
+      ],
+      "invariants": [
+        "schemas_valid == true"
+      ],
+      "outputs": [],
+      "type": "gate"
+    },
+    {
+      "gates": [],
+      "id": "HASH_RECORDING",
+      "inputs": [
+        "execution/ledger/run.ledger.json",
+        "execution/ledger/artifact_hashes.json"
+      ],
+      "invariants": [
+        "hashes_recorded == true"
+      ],
+      "outputs": [],
+      "type": "gate"
+    },
+    {
+      "gates": [],
+      "id": "CHECK",
+      "inputs": [
+        "execution/ledger/run.ledger.json",
+        "execution/ledger/artifact_hashes.json"
+      ],
+      "invariants": [
+        "checks_complete == true"
+      ],
+      "outputs": [
+        "execution/ledger/run.manifest.json"
+      ],
+      "type": "phase"
+    },
+    {
+      "gates": [],
+      "id": "REPAIR",
+      "inputs": [
+        "execution/ledger/run.ledger.json",
+        "execution/ledger/artifact_hashes.json"
+      ],
+      "invariants": [
+        "repairs_applied == true"
+      ],
+      "outputs": [],
+      "type": "phase"
+    },
+    {
+      "gates": [
+        "PROMOTION_ALLOW"
+      ],
+      "id": "PROMOTE",
+      "inputs": [
+        "execution/ledger/run.manifest.json",
+        "execution/ledger/run.ledger.json"
+      ],
+      "invariants": [
+        "promotion_requested == true"
+      ],
+      "outputs": [
+        "execution/ci/attestation.json"
+      ],
+      "type": "phase"
+    },
+    {
+      "gates": [],
+      "id": "PROMOTION_ALLOW",
+      "inputs": [
+        "control/runtime/promotion.request.json",
+        "execution/ci/attestation.json"
+      ],
+      "invariants": [
+        "promotion_allowed == true"
+      ],
+      "outputs": [],
+      "type": "gate"
+    }
+  ],
+  "opa_inputs": [
+    "control/runtime/pre_gen_capsule.json",
+    "control/authority.ledger.json",
+    "objectives.json",
+    "dependency.graph.json",
+    "execution_dag.json",
+    "execution/ledger/run.ledger.json",
+    "execution/ledger/artifact_hashes.json",
+    "execution/evidence/materialization.ledger.json",
+    "execution/evidence/checks.json",
+    "execution/ci/attestation.json"
+  ],
+  "opa_outputs": [
+    "opa/decision.json",
+    "opa/explain.json",
+    "opa/bundle.hash"
+  ],
+  "version": "1.0"
+}

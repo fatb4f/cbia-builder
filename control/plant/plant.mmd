@@ -1,0 +1,19 @@
+flowchart TD
+  PRE_GEN["Control Kernel (PRE-GEN)"]
+  OPA_DECISION["OPA decision"]
+  GEN["GEN"]
+  SCHEMA_VALIDATION["schema validation"]
+  HASH_RECORDING["hash recording"]
+  CHECK["CHECK"]
+  REPAIR["REPAIR (optional)"]
+  PROMOTE["PROMOTE"]
+  PROMOTION_ALLOW["promotion allow/deny"]
+  PRE_GEN -->|kernel_decision == ALLOW| OPA_DECISION
+  OPA_DECISION -->|allow == true| GEN
+  GEN -->|artifacts_emitted| SCHEMA_VALIDATION
+  SCHEMA_VALIDATION -->|schemas_valid| HASH_RECORDING
+  HASH_RECORDING -->|hashes_recorded| CHECK
+  CHECK -->|checks_pass| PROMOTE
+  CHECK -->|checks_fail| REPAIR
+  REPAIR -->|repairs_applied| CHECK
+  PROMOTE -->|promotion_request_present| PROMOTION_ALLOW
