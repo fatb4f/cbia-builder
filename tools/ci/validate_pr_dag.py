@@ -16,6 +16,7 @@ Inputs:
     - --base-ref
     - --head-ref
     - --print-resolved-refs
+    - --skip-control-map-regen
 
 Hard rules:
 - protected files must not be deleted
@@ -117,6 +118,21 @@ def git_changed_files(base: str, head: str) -> Tuple[List[str], List[str]]:
             deleted.append(path)
     return added, deleted
 
+def regen_control_maps() -> None:
+    run([sys.executable, "tools/ci/regen_control_maps.py"])
+
+def check_control_maps_clean() -> None:
+    run(
+        [
+            "git",
+            "diff",
+            "--exit-code",
+            "--",
+            "control/plant/plant.mmd",
+            "control/plant/execution_dag.json",
+        ]
+    )
+
 def must_exist(rel: str) -> None:
     p = ROOT / rel
     if not p.exists():
@@ -157,6 +173,11 @@ def main() -> None:
         action="store_true",
         help="Print resolved base/head refs and exit",
     )
+    parser.add_argument(
+        "--skip-control-map-regen",
+        action="store_true",
+        help="Skip control-map regeneration and diff check",
+    )
     args = parser.parse_args()
 
     contract = load_contract()
@@ -168,6 +189,10 @@ def main() -> None:
     if args.print_resolved_refs:
         print(f"base={base} head={head}")
         return
+
+    if not args.skip_control_map_regen:
+        regen_control_maps()
+        check_control_maps_clean()
 
     _, deleted = git_changed_files(base, head)
 
