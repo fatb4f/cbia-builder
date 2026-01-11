@@ -27,9 +27,11 @@ def opa_gate(
     pre_gen_capsule: Dict[str, Any],
     run_ledger: list[Dict[str, Any]],
     artifact_hashes: Dict[str, str],
+    *args,
+    **kwargs,
 ) -> None:
     """Regression guard requires this symbol. Writes opa/decision.json."""
-    pipeline_driver.opa_gate(pre_gen_capsule, run_ledger, artifact_hashes)
+    pipeline_driver.opa_gate(pre_gen_capsule, run_ledger, artifact_hashes, *args, **kwargs)
 
 
 def main() -> int:
