@@ -11,6 +11,7 @@ from typing import Any, Dict, List, Tuple
 ROOT = os.path.dirname(os.path.dirname(__file__))
 
 PHASE_ORDER = ["PRE_GEN", "GEN", "CHECK", "REPAIR", "PROMOTE"]
+CACHE_SCHEMA_VERSION = "0.1.0"
 
 
 def _read_json(path: str) -> Any:
@@ -335,19 +336,19 @@ def write_ledgers(run_ledger: List[Dict[str, Any]], artifact_hashes: Dict[str, s
     _write_json(os.path.join(ROOT, "execution/ledger/artifact_hashes.json"), artifact_hashes)
 
 
-def _inputs_manifest_hash() -> str:
-    candidate = os.path.join(ROOT, "execution/ledger/inputs.manifest.json")
+def _inputs_manifest_hash(root: str = ROOT) -> str:
+    candidate = os.path.join(root, "execution/ledger/inputs.manifest.json")
     return sha256_file(candidate) if os.path.exists(candidate) else ""
 
 
-def _phase_inputs(pre_gen_capsule: Dict[str, Any]) -> Dict[str, str]:
+def _phase_inputs(pre_gen_capsule: Dict[str, Any], root: str = ROOT) -> Dict[str, str]:
     return {
-        "authority_ledger": sha256_file(os.path.join(ROOT, "control/authority.ledger.json")),
+        "authority_ledger": sha256_file(os.path.join(root, "control/authority.ledger.json")),
         "policy_bundle": pre_gen_capsule.get("policy_bundle_hash", ""),
         "pre_gen_capsule": _sha256_path_if_exists(
-            os.path.join(ROOT, "control/runtime/pre_gen_capsule.json")
+            os.path.join(root, "control/runtime/pre_gen_capsule.json")
         ),
-        "inputs_manifest": _inputs_manifest_hash(),
+        "inputs_manifest": _inputs_manifest_hash(root),
     }
 
 
@@ -357,6 +358,156 @@ def _phase_outputs() -> Dict[str, str]:
         "opa_explain": _sha256_path_if_exists(os.path.join(ROOT, "opa/explain.json")),
         "opa_bundle_hash": _sha256_path_if_exists(os.path.join(ROOT, "opa/bundle.hash")),
     }
+
+
+def _canonical_json(payload: Any) -> bytes:
+    return json.dumps(payload, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode(
+        "utf-8"
+    )
+
+
+def _runner_version_hash() -> str:
+    components = {
+        "tools/pipeline_driver.py": sha256_file(os.path.join(ROOT, "tools/pipeline_driver.py")),
+        "tools/run_pipeline.py": sha256_file(os.path.join(ROOT, "tools/run_pipeline.py")),
+    }
+    return _sha256_bytes(_canonical_json(components))
+
+
+def _next_ledger_entry_id(run_ledger: List[Dict[str, Any]]) -> str:
+    return f"LEDGER-{len(run_ledger) + 1:04d}"
+
+
+def _gen_outputs_path(root: str = ROOT) -> str:
+    return os.path.join(root, "execution/gen/outputs.json")
+
+
+def _gen_phase(pre_gen_capsule: Dict[str, Any], root: str = ROOT) -> List[str]:
+    payload = {
+        "schema_version": "0.1.0",
+        "phase": "GEN",
+        "input_hashes": _phase_inputs(pre_gen_capsule, root),
+    }
+    output_path = _gen_outputs_path(root)
+    _write_json(output_path, payload)
+    return [output_path]
+
+
+class CacheManager:
+    def __init__(self, root: str = ROOT) -> None:
+        self.root = root
+        self.cache_root = os.path.join(root, "execution/cache")
+
+    def tool_versions(self) -> Dict[str, str]:
+        return {
+            "runner_version": _runner_version_hash(),
+            "generator_version": "unimplemented",
+        }
+
+    def cache_key_data(self, phase: str, pre_gen_capsule: Dict[str, Any]) -> Dict[str, Any]:
+        inputs_manifest = _inputs_manifest_hash(self.root)
+        return {
+            "schema_version": CACHE_SCHEMA_VERSION,
+            "phase": phase,
+            "authority_ledger_hash": sha256_file(
+                os.path.join(self.root, "control/authority.ledger.json")
+            ),
+            "policy_bundle_hash": pre_gen_capsule.get("policy_bundle_hash", ""),
+            "pre_gen_capsule_hash": _sha256_path_if_exists(
+                os.path.join(self.root, "control/runtime/pre_gen_capsule.json")
+            ),
+            "inputs_manifest_hash": inputs_manifest,
+            "tool_versions": self.tool_versions(),
+        }
+
+    def cache_key(self, key_data: Dict[str, Any]) -> str:
+        return _sha256_bytes(_canonical_json(key_data))
+
+    def cache_dir(self, cache_key: str) -> str:
+        return os.path.join(self.cache_root, cache_key)
+
+    def cache_meta_path(self, cache_key: str) -> str:
+        return os.path.join(self.cache_dir(cache_key), "cache.meta.json")
+
+    def has_cache(self, cache_key: str) -> bool:
+        return os.path.exists(self.cache_meta_path(cache_key))
+
+    def store(
+        self,
+        cache_key: str,
+        key_data: Dict[str, Any],
+        phase_artifacts: List[str],
+    ) -> Dict[str, Any]:
+        cache_dir = self.cache_dir(cache_key)
+        artifacts: List[Dict[str, Any]] = []
+        phase_relpaths: List[str] = []
+        for path in phase_artifacts:
+            rel = os.path.relpath(path, self.root)
+            dest = os.path.join(cache_dir, rel)
+            os.makedirs(os.path.dirname(dest), exist_ok=True)
+            with open(path, "rb") as src, open(dest, "wb") as dst:
+                data = src.read()
+                dst.write(data)
+            artifacts.append(
+                {
+                    "path": rel,
+                    "hash": _sha256_bytes(data),
+                    "bytes": len(data),
+                }
+            )
+            phase_relpaths.append(rel)
+
+        opa_paths = [
+            os.path.join(self.root, "opa/decision.json"),
+            os.path.join(self.root, "opa/explain.json"),
+            os.path.join(self.root, "opa/bundle.hash"),
+        ]
+        for path in opa_paths:
+            if not os.path.exists(path):
+                continue
+            rel = os.path.relpath(path, self.root)
+            dest = os.path.join(cache_dir, rel)
+            os.makedirs(os.path.dirname(dest), exist_ok=True)
+            with open(path, "rb") as src, open(dest, "wb") as dst:
+                data = src.read()
+                dst.write(data)
+            artifacts.append(
+                {
+                    "path": rel,
+                    "hash": _sha256_bytes(data),
+                    "bytes": len(data),
+                }
+            )
+
+        meta = {
+            "schema_version": CACHE_SCHEMA_VERSION,
+            "cache_key": cache_key,
+            "phase": key_data.get("phase"),
+            "key_data": key_data,
+            "artifacts": artifacts,
+            "phase_artifacts": phase_relpaths,
+        }
+        _write_json(self.cache_meta_path(cache_key), meta)
+        return meta
+
+    def replay(self, cache_key: str) -> List[str]:
+        meta = _read_json(self.cache_meta_path(cache_key))
+        artifacts = meta.get("artifacts", [])
+        phase_relpaths = set(meta.get("phase_artifacts", []))
+        replayed: List[str] = []
+        for artifact in artifacts:
+            rel = artifact.get("path", "")
+            if not rel:
+                continue
+            src = os.path.join(self.cache_dir(cache_key), rel)
+            dest = os.path.join(self.root, rel)
+            os.makedirs(os.path.dirname(dest), exist_ok=True)
+            with open(src, "rb") as src_f, open(dest, "wb") as dst_f:
+                data = src_f.read()
+                dst_f.write(data)
+            if rel in phase_relpaths:
+                replayed.append(dest)
+        return replayed
 
 
 def write_manifest(entries: List[Dict[str, Any]]) -> str:
@@ -384,7 +535,7 @@ class PipelineDriver:
             manifest_entries.append(
                 {
                     "phase": "PRE_GEN",
-                    "input_hashes": _phase_inputs(pre_gen_capsule),
+                    "input_hashes": _phase_inputs(pre_gen_capsule, self.root),
                     "output_hashes": _phase_outputs(),
                     "status": "executed",
                     "reason": "",
@@ -394,7 +545,7 @@ class PipelineDriver:
             manifest_entries.append(
                 {
                     "phase": "PRE_GEN",
-                    "input_hashes": _phase_inputs(pre_gen_capsule),
+                    "input_hashes": _phase_inputs(pre_gen_capsule, self.root),
                     "output_hashes": _phase_outputs(),
                     "status": "executed",
                     "reason": f"failed: {exc}",
@@ -410,7 +561,7 @@ class PipelineDriver:
                 manifest_entries.append(
                     {
                         "phase": phase,
-                        "input_hashes": _phase_inputs(pre_gen_capsule),
+                        "input_hashes": _phase_inputs(pre_gen_capsule, self.root),
                         "output_hashes": {},
                         "status": "skipped",
                         "reason": "dry-run",
@@ -422,19 +573,55 @@ class PipelineDriver:
             write_ledgers(run_ledger, artifact_hashes)
             return 0
 
+        cache_manager = CacheManager(self.root)
+        cache_key_data = cache_manager.cache_key_data("GEN", pre_gen_capsule)
+        cache_key = cache_manager.cache_key(cache_key_data)
+        cache_hit = cache_manager.has_cache(cache_key)
+        if cache_hit:
+            phase_outputs = cache_manager.replay(cache_key)
+            cache_reason = "cache-hit"
+        else:
+            phase_outputs = _gen_phase(pre_gen_capsule, self.root)
+            cache_manager.store(cache_key, cache_key_data, phase_outputs)
+            cache_reason = "cache-miss"
+
+        output_hashes: Dict[str, str] = {}
+        for path in phase_outputs:
+            rel = os.path.relpath(path, self.root)
+            output_hashes[rel] = sha256_file(path)
+            artifact_hashes[rel] = output_hashes[rel]
+
+        gen_entry = {
+            "entry_id": _next_ledger_entry_id(run_ledger),
+            "phase": "GEN",
+            "artifact_id": "GEN-OUTPUTS",
+            "artifact_path": os.path.relpath(phase_outputs[0], self.root) if phase_outputs else "",
+            "hash": output_hashes.get(
+                os.path.relpath(phase_outputs[0], self.root), ""
+            )
+            if phase_outputs
+            else "",
+            "objective_ids": [],
+            "authority_ids": [],
+            "policy_bundle_hash": pre_gen_capsule["policy_bundle_hash"],
+            "timestamp": now_utc(),
+            "cache": {"hit": cache_hit, "cache_key": cache_key},
+        }
+        run_ledger.append(gen_entry)
+
         manifest_entries.append(
             {
                 "phase": "GEN",
-                "input_hashes": _phase_inputs(pre_gen_capsule),
-                "output_hashes": {},
-                "status": "skipped",
-                "reason": "not implemented",
+                "input_hashes": _phase_inputs(pre_gen_capsule, self.root),
+                "output_hashes": output_hashes,
+                "status": "executed" if not cache_hit else "replayed",
+                "reason": cache_reason,
             }
         )
         manifest_entries.append(
             {
                 "phase": "CHECK",
-                "input_hashes": _phase_inputs(pre_gen_capsule),
+                "input_hashes": _phase_inputs(pre_gen_capsule, self.root),
                 "output_hashes": {},
                 "status": "skipped",
                 "reason": "not implemented",
@@ -443,7 +630,7 @@ class PipelineDriver:
         manifest_entries.append(
             {
                 "phase": "REPAIR",
-                "input_hashes": _phase_inputs(pre_gen_capsule),
+                "input_hashes": _phase_inputs(pre_gen_capsule, self.root),
                 "output_hashes": {},
                 "status": "skipped",
                 "reason": "not implemented",
@@ -452,7 +639,7 @@ class PipelineDriver:
         manifest_entries.append(
             {
                 "phase": "PROMOTE",
-                "input_hashes": _phase_inputs(pre_gen_capsule),
+                "input_hashes": _phase_inputs(pre_gen_capsule, self.root),
                 "output_hashes": {},
                 "status": "skipped",
                 "reason": "not implemented",
@@ -462,7 +649,7 @@ class PipelineDriver:
         manifest_hash = sha256_file(manifest_path)
         print(f"Run manifest: {manifest_path} (sha256={manifest_hash})")
         write_ledgers(run_ledger, artifact_hashes)
-        raise SystemExit("GEN not implemented in Packet 1 (orchestration-only).")
+        return 0
 
 
 def main(argv: List[str] | None = None) -> int:

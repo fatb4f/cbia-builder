@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CBIA Builder Cache Key",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "phase",
+    "authority_ledger_hash",
+    "policy_bundle_hash",
+    "pre_gen_capsule_hash",
+    "inputs_manifest_hash",
+    "tool_versions"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "phase": {
+      "type": "string",
+      "enum": ["GEN", "CHECK", "REPAIR", "PROMOTE"]
+    },
+    "authority_ledger_hash": {
+      "type": "string"
+    },
+    "policy_bundle_hash": {
+      "type": "string"
+    },
+    "pre_gen_capsule_hash": {
+      "type": "string"
+    },
+    "inputs_manifest_hash": {
+      "type": "string"
+    },
+    "tool_versions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["runner_version", "generator_version"],
+      "properties": {
+        "runner_version": {"type": "string"},
+        "generator_version": {"type": "string"}
+      }
+    }
+  }
+}
