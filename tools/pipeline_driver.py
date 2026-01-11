@@ -6,8 +6,11 @@ import hashlib
 import json
 import os
 import shutil
+import subprocess
 import sys
 from typing import Any, Dict, List, Tuple
+
+import jsonschema
 
 ROOT = os.path.dirname(os.path.dirname(__file__))
 
@@ -76,6 +79,14 @@ def _sha256_path_if_exists(path: str) -> str:
     if os.path.exists(path) and os.path.isdir(path):
         return sha256_dir(path)
     return ""
+
+
+def _stable_capsule_hash(path: str) -> str:
+    if not os.path.exists(path):
+        return ""
+    payload = _read_json(path)
+    payload.pop("timestamp", None)
+    return _sha256_bytes(_canonical_json(payload))
 
 
 def materialize_evidence(
@@ -198,12 +209,14 @@ def pre_gen(output_root: str | None = None) -> Dict[str, Any]:
     auth = _read_json(os.path.join(ROOT, "control/authority.ledger.json"))
     hashes = {a["authority_id"]: a["hash"]["value"] for a in auth["authority_set"]}
     policy_bundle_hash = sha256_dir(os.path.join(ROOT, "policy"))
+    gen_executor = _gen_executor_identity(ROOT)
     capsule = {
         "schema_version": "0.1.0",
         "kernel_decision": "ALLOW" if auth.get("frozen") else "DENY",
         "control_state_hash": _sha256_bytes(json.dumps(hashes, sort_keys=True).encode("utf-8")),
         "policy_bundle_hash": policy_bundle_hash,
         "authority_set_hashes": hashes,
+        "gen_executor": gen_executor,
         "timestamp": now_utc(),
     }
     _write_json(_pre_gen_capsule_path(output_root), capsule)
@@ -450,6 +463,82 @@ def _canonical_json(payload: Any) -> bytes:
     )
 
 
+def _load_gen_executor_schema(root: str = ROOT) -> Dict[str, Any]:
+    return _read_json(os.path.join(root, "control/executors/gen_executor.schema.json"))
+
+
+def _validate_gen_executor(instance: Dict[str, Any], def_name: str, schema: Dict[str, Any]) -> None:
+    validator_schema = {
+        "$schema": schema.get("$schema", "https://json-schema.org/draft/2020-12/schema"),
+        "$ref": f"#/$defs/{def_name}",
+        "$defs": schema.get("$defs", {}),
+    }
+    jsonschema.validate(instance=instance, schema=validator_schema)
+
+
+def _load_gen_executor_config(root: str = ROOT) -> Dict[str, Any] | None:
+    env_path = os.environ.get("CBIA_GEN_EXECUTOR_CONFIG")
+    if env_path:
+        return _read_json(env_path)
+    config_path = os.path.join(root, "control/runtime/gen_executor.json")
+    if os.path.exists(config_path):
+        return _read_json(config_path)
+    return None
+
+
+def _default_gen_phase_config() -> Dict[str, Any]:
+    return {
+        "phase": "GEN",
+        "outputs": {
+            "outputs_manifest": "execution/gen/outputs.json",
+            "execution_report": "execution/gen/executor.report.json",
+        },
+    }
+
+
+def _default_gen_executor_config() -> Dict[str, Any]:
+    return {"kind": "local", "version": "builtin", "phase_config": _default_gen_phase_config()}
+
+
+def _resolved_gen_executor_config(root: str = ROOT) -> Tuple[Dict[str, Any], bool]:
+    config = _load_gen_executor_config(root)
+    explicit = config is not None
+    resolved = config if config is not None else _default_gen_executor_config()
+    schema = _load_gen_executor_schema(root)
+    _validate_gen_executor(resolved, "config", schema)
+    if "phase_config" not in resolved:
+        resolved["phase_config"] = _default_gen_phase_config()
+    return resolved, explicit
+
+
+def _gen_executor_phase_config(config: Dict[str, Any]) -> Dict[str, Any]:
+    phase_config = _default_gen_phase_config()
+    override = config.get("phase_config") if isinstance(config, dict) else None
+    if isinstance(override, dict):
+        phase_config.update({k: v for k, v in override.items() if k != "outputs"})
+        outputs = dict(phase_config.get("outputs", {}))
+        outputs.update(override.get("outputs", {}))
+        phase_config["outputs"] = outputs
+    return phase_config
+
+
+def _gen_executor_identity(root: str = ROOT) -> Dict[str, Any]:
+    config, explicit = _resolved_gen_executor_config(root)
+    schema_path = os.path.join(root, "control/executors/gen_executor.schema.json")
+    config_hash = _sha256_bytes(_canonical_json(config))
+    return {
+        "kind": config["kind"],
+        "version": config["version"],
+        "explicit": explicit,
+        "config_hash": config_hash,
+        "schema_hash": sha256_file(schema_path) if os.path.exists(schema_path) else "",
+    }
+
+
+def _gen_executor_version(root: str = ROOT) -> str:
+    return _sha256_bytes(_canonical_json(_gen_executor_identity(root)))
+
+
 def _runner_version_hash() -> str:
     components = {
         "tools/pipeline_driver.py": sha256_file(os.path.join(ROOT, "tools/pipeline_driver.py")),
@@ -467,6 +556,73 @@ def _gen_outputs_path(root: str = ROOT) -> str:
 
 
 def _gen_phase(pre_gen_capsule: Dict[str, Any], root: str = ROOT) -> List[str]:
+    executor_config, explicit = _resolved_gen_executor_config(root)
+    if explicit:
+        if executor_config["kind"] == "local" and "command" not in executor_config:
+            explicit = False
+
+    if explicit:
+        schema = _load_gen_executor_schema(root)
+        phase_config = _gen_executor_phase_config(executor_config)
+        phase_config["executor_id"] = executor_config.get("executor_id", "external")
+        inputs_manifest_path = os.path.join(root, "execution/ledger/inputs.manifest.json")
+        inputs_manifest = (
+            _read_json(inputs_manifest_path) if os.path.exists(inputs_manifest_path) else {}
+        )
+        request = {
+            "schema_version": "0.1.0",
+            "pre_gen_capsule": pre_gen_capsule,
+            "inputs_manifest": inputs_manifest,
+            "phase_config": phase_config,
+        }
+        _validate_gen_executor(request, "request", schema)
+        input_path = os.path.join(root, "execution/gen/executor.input.json")
+        _write_json(input_path, request)
+        command = executor_config.get("command")
+        if not isinstance(command, list) or not command:
+            raise ValueError("GEN executor config must include a non-empty command list")
+        timeout_s = executor_config.get("timeout_s")
+        env_override = executor_config.get("env")
+        env = os.environ.copy()
+        if isinstance(env_override, dict):
+            env.update({str(k): str(v) for k, v in env_override.items()})
+        completed = subprocess.run(
+            [*command, input_path],
+            check=False,
+            cwd=root,
+            env=env,
+            capture_output=True,
+            text=True,
+            timeout=timeout_s,
+        )
+        if completed.returncode != 0:
+            stdout = completed.stdout.strip()
+            stderr = completed.stderr.strip()
+            raise RuntimeError(
+                "GEN executor failed "
+                f"(exit={completed.returncode}) stdout={stdout!r} stderr={stderr!r}"
+            )
+
+        report_path = os.path.join(root, phase_config["outputs"]["execution_report"])
+        if not os.path.exists(report_path):
+            raise FileNotFoundError(
+                f"GEN executor report missing: {phase_config['outputs']['execution_report']}"
+            )
+        report = _read_json(report_path)
+        _validate_gen_executor(report, "report", schema)
+
+        outputs: List[str] = []
+        for artifact in report.get("artifacts", []):
+            relpath = artifact.get("path", "")
+            if not relpath:
+                continue
+            abs_path = os.path.join(root, relpath)
+            if not os.path.exists(abs_path):
+                raise FileNotFoundError(f"GEN executor artifact missing: {relpath}")
+            outputs.append(abs_path)
+        outputs.append(report_path)
+        return outputs
+
     payload = {
         "schema_version": "0.1.0",
         "phase": "GEN",
@@ -485,7 +641,7 @@ class CacheManager:
     def tool_versions(self) -> Dict[str, str]:
         return {
             "runner_version": _runner_version_hash(),
-            "generator_version": "unimplemented",
+            "generator_version": _gen_executor_version(self.root),
         }
 
     def cache_key_data(self, phase: str, pre_gen_capsule: Dict[str, Any]) -> Dict[str, Any]:
@@ -497,7 +653,7 @@ class CacheManager:
                 os.path.join(self.root, "control/authority.ledger.json")
             ),
             "policy_bundle_hash": pre_gen_capsule.get("policy_bundle_hash", ""),
-            "pre_gen_capsule_hash": _sha256_path_if_exists(
+            "pre_gen_capsule_hash": _stable_capsule_hash(
                 os.path.join(self.root, "control/runtime/pre_gen_capsule.json")
             ),
             "inputs_manifest_hash": inputs_manifest,
