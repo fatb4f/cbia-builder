@@ -1,0 +1,11 @@
+{
+  "version": "v0.1.0",
+  "source": "master-math-doc",
+  "topics": [
+    { "math_topic_id": "logic.propositions", "title": "Propositions and logic", "keywords": ["proposition", "logic", "and", "or", "not", "truth", "vrai", "faux"], "source_ref": { "source": "master-math-doc", "anchor": "#pack-math-logic" } },
+    { "math_topic_id": "logic.truth_tables", "title": "Truth tables", "keywords": ["truth table", "table de verite", "verite", "AND", "OR", "NOT", "&&", "||", "!"], "source_ref": { "source": "master-math-doc", "anchor": "#pack-math-logic" } },
+    { "math_topic_id": "sets.basics", "title": "Sets basics", "keywords": ["set", "ensemble", "element", "subset", "union", "intersection"], "source_ref": { "source": "master-math-doc", "anchor": "#pack-math-sets" } },
+    { "math_topic_id": "relations.order", "title": "Order relations", "keywords": ["order", "relation", "<= ", ">=", "comparaison", "range", "interval"], "source_ref": { "source": "master-math-doc", "anchor": "#pack-math-relations" } },
+    { "math_topic_id": "numbers.mod", "title": "Euclidean division and modulo", "keywords": ["division", "euclidean", "mod", "modulo", "%", "remainder", "reste", "divisibilite"], "source_ref": { "source": "master-math-doc", "anchor": "#pack-math-numbers" } }
+  ]
+}
