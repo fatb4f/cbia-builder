@@ -2,10 +2,6 @@
   "prune_id": "inf1220-prune-deprecated-and-unused/v0.1.0",
   "removed": [
     {
-      "path": "assurance/claims.json",
-      "reason": "unused"
-    },
-    {
       "path": "cbia-content/inf1220/syllabus/Programmation Java en ligne - Introduction #U00e0 la programmation.md",
       "reason": "denylist"
     },
@@ -55,10 +51,6 @@
     },
     {
       "path": "cbia-contentless",
-      "reason": "unused"
-    },
-    {
-      "path": "opa",
       "reason": "unused"
     },
     {
