@@ -1,0 +1,552 @@
+{
+  "version": "v0.2.0",
+  "pack_id": "inf1220-m1-pointer-pack",
+  "source_path": "control/authority/inf1220_m1_pointer_pack.sanitized.md",
+  "generated_at": "2026-01-17T19:25:19Z",
+  "anchors": [
+    {
+      "anchor": "#pack-m1-07-prerequisites",
+      "id": "pack-m1-07-prerequisites",
+      "line": 133,
+      "summary": "**Audit source:** `m1-07-Algorithms.en.sanitized.md`",
+      "module": "m1",
+      "topic": "m1-07"
+    },
+    {
+      "anchor": "#pack-m1-07-what-is-an-algorithm",
+      "id": "pack-m1-07-what-is-an-algorithm",
+      "line": 151,
+      "summary": "**Audit source:** `m1-07-Algorithms.en.sanitized.md`",
+      "module": "m1",
+      "topic": "m1-07"
+    },
+    {
+      "anchor": "#pack-m1-07-what-is-pseudocode",
+      "id": "pack-m1-07-what-is-pseudocode",
+      "line": 167,
+      "summary": "**Audit source:** `m1-07-Algorithms.en.sanitized.md`",
+      "module": "m1",
+      "topic": "m1-07"
+    },
+    {
+      "anchor": "#pack-m1-07-variables-and-values",
+      "id": "pack-m1-07-variables-and-values",
+      "line": 191,
+      "summary": "**Audit source:** `m1-07-Algorithms.en.sanitized.md`",
+      "module": "m1",
+      "topic": "m1-07"
+    },
+    {
+      "anchor": "#pack-m1-07-boolean-logic",
+      "id": "pack-m1-07-boolean-logic",
+      "line": 222,
+      "summary": "**Audit source:** `m1-07-Algorithms.en.sanitized.md`",
+      "module": "m1",
+      "topic": "m1-07"
+    },
+    {
+      "anchor": "#pack-m1-07-programmer-notation",
+      "id": "pack-m1-07-programmer-notation",
+      "line": 276,
+      "summary": "**Audit source:** `m1-07-Algorithms.en.sanitized.md`",
+      "module": "m1",
+      "topic": "m1-07"
+    },
+    {
+      "anchor": "#pack-m1-07-the-loop",
+      "id": "pack-m1-07-the-loop",
+      "line": 291,
+      "summary": "**Audit source:** `m1-07-Algorithms.en.sanitized.md`",
+      "module": "m1",
+      "topic": "m1-07"
+    },
+    {
+      "anchor": "#pack-m1-07-array",
+      "id": "pack-m1-07-array",
+      "line": 343,
+      "summary": "**Audit source:** `m1-07-Algorithms.en.sanitized.md`",
+      "module": "m1",
+      "topic": "m1-07"
+    },
+    {
+      "anchor": "#pack-m1-07-average-example",
+      "id": "pack-m1-07-average-example",
+      "line": 395,
+      "summary": "**Audit source:** `m1-07-Algorithms.en.sanitized.md`",
+      "module": "m1",
+      "topic": "m1-07"
+    },
+    {
+      "anchor": "#pack-math-logic",
+      "id": "pack-math-logic",
+      "line": 453,
+      "summary": "**Audit source:** `Rappel mathématique _ INF 1220 - Introduction à la programmation.html`",
+      "module": "math",
+      "topic": "math"
+    },
+    {
+      "anchor": "#pack-math-sets",
+      "id": "pack-math-sets",
+      "line": 463,
+      "summary": "**Audit source:** `Rappel mathématique _ INF 1220 - Introduction à la programmation.html`",
+      "module": "math",
+      "topic": "math"
+    },
+    {
+      "anchor": "#pack-math-relations",
+      "id": "pack-math-relations",
+      "line": 473,
+      "summary": "**Audit source:** `Rappel mathématique _ INF 1220 - Introduction à la programmation.html`",
+      "module": "math",
+      "topic": "math"
+    },
+    {
+      "anchor": "#pack-math-numbers",
+      "id": "pack-math-numbers",
+      "line": 483,
+      "summary": "**Audit source:** `Rappel mathématique _ INF 1220 - Introduction à la programmation.html`",
+      "module": "math",
+      "topic": "math"
+    },
+    {
+      "anchor": "#pack-math-series",
+      "id": "pack-math-series",
+      "line": 493,
+      "summary": "**Audit source:** `Rappel mathématique _ INF 1220 - Introduction à la programmation.html`",
+      "module": "math",
+      "topic": "math"
+    },
+    {
+      "anchor": "#pack-m1-08-design",
+      "id": "pack-m1-08-design",
+      "line": 503,
+      "summary": "**Audit source:** `m1-08-Les algorithmes-conception et syntaxe.md`",
+      "module": "m1",
+      "topic": "m1-08"
+    },
+    {
+      "anchor": "#pack-m1-08-syntax",
+      "id": "pack-m1-08-syntax",
+      "line": 518,
+      "summary": "**Audit source:** `m1-08-Les algorithmes-conception et syntaxe.md`",
+      "module": "m1",
+      "topic": "m1-08"
+    },
+    {
+      "anchor": "#pack-m1-08-io",
+      "id": "pack-m1-08-io",
+      "line": 539,
+      "summary": "**Audit source:** `m1-08-Les algorithmes-conception et syntaxe.md`",
+      "module": "m1",
+      "topic": "m1-08"
+    },
+    {
+      "anchor": "#pack-m1-08-operations",
+      "id": "pack-m1-08-operations",
+      "line": 549,
+      "summary": "**Audit source:** `m1-08-Les algorithmes-conception et syntaxe.md`",
+      "module": "m1",
+      "topic": "m1-08"
+    },
+    {
+      "anchor": "#pack-m1-08-example-vowels",
+      "id": "pack-m1-08-example-vowels",
+      "line": 561,
+      "summary": "**Audit source:** `m1-08-Les algorithmes-conception et syntaxe.md`",
+      "module": "m1",
+      "topic": "m1-08"
+    },
+    {
+      "anchor": "#pack-m1-09-jump",
+      "id": "pack-m1-09-jump",
+      "line": 591,
+      "summary": "**Audit source:** `m1-09-Les algorithmes - les structures de contrôle.md`",
+      "module": "m1",
+      "topic": "m1-09"
+    },
+    {
+      "anchor": "#pack-m1-09-branching",
+      "id": "pack-m1-09-branching",
+      "line": 611,
+      "summary": "**Audit source:** `m1-09-Les algorithmes - les structures de contrôle.md`",
+      "module": "m1",
+      "topic": "m1-09"
+    },
+    {
+      "anchor": "#pack-m1-09-loop",
+      "id": "pack-m1-09-loop",
+      "line": 667,
+      "summary": "**Audit source:** `m1-09-Les algorithmes - les structures de contrôle.md`",
+      "module": "m1",
+      "topic": "m1-09"
+    },
+    {
+      "anchor": "#pack-m1-09-composition",
+      "id": "pack-m1-09-composition",
+      "line": 722,
+      "summary": "**Audit source:** `m1-09-Les algorithmes - les structures de contrôle.md`",
+      "module": "m1",
+      "topic": "m1-09"
+    },
+    {
+      "anchor": "#pack-m1-09-ending",
+      "id": "pack-m1-09-ending",
+      "line": 742,
+      "summary": "**Audit source:** `m1-09-Les algorithmes - les structures de contrôle.md`",
+      "module": "m1",
+      "topic": "m1-09"
+    },
+    {
+      "anchor": "#pack-m1-09-tracing",
+      "id": "pack-m1-09-tracing",
+      "line": 772,
+      "summary": "**Audit source:** `m1-09-Les algorithmes - les structures de contrôle.md`",
+      "module": "m1",
+      "topic": "m1-09"
+    },
+    {
+      "anchor": "#pack-m1-10-tsp-nearest-neighbor",
+      "id": "pack-m1-10-tsp-nearest-neighbor",
+      "line": 820,
+      "summary": "**Audit source:** `m1-10-Les problèmes difficiles.md`",
+      "module": "m1",
+      "topic": "m1-10"
+    },
+    {
+      "anchor": "#pack-m1-10-distance-table",
+      "id": "pack-m1-10-distance-table",
+      "line": 926,
+      "summary": "**Audit source:** `m1-10-Les problèmes difficiles.md`",
+      "module": "m1",
+      "topic": "m1-10"
+    },
+    {
+      "anchor": "#pack-m1-11-big-o",
+      "id": "pack-m1-11-big-o",
+      "line": 1008,
+      "summary": "**Audit source:** `m1-11-Complexité algorithmique.md`",
+      "module": "m1",
+      "topic": "m1-11"
+    },
+    {
+      "anchor": "#pack-m1-11-examples",
+      "id": "pack-m1-11-examples",
+      "line": 1020,
+      "summary": "**Audit source:** `m1-11-Complexité algorithmique.md`",
+      "module": "m1",
+      "topic": "m1-11"
+    },
+    {
+      "anchor": "#pack-m1-11-binary-search",
+      "id": "pack-m1-11-binary-search",
+      "line": 1040,
+      "summary": "**Audit source:** `m1-11-Complexité algorithmique.md`",
+      "module": "m1",
+      "topic": "m1-11"
+    },
+    {
+      "anchor": "#pack-m1-11-sorting",
+      "id": "pack-m1-11-sorting",
+      "line": 1093,
+      "summary": "**Audit source:** `m1-11-Complexité algorithmique.md`",
+      "module": "m1",
+      "topic": "m1-11"
+    },
+    {
+      "anchor": "#pack-m1-11-hash-table",
+      "id": "pack-m1-11-hash-table",
+      "line": 1261,
+      "summary": "**Audit source:** `m1-11-Complexité algorithmique.md`",
+      "module": "m1",
+      "topic": "m1-11"
+    },
+    {
+      "anchor": "#pack-m1-11-same-problem",
+      "id": "pack-m1-11-same-problem",
+      "line": 1295,
+      "summary": "**Audit source:** `m1-11-Complexité algorithmique.md`",
+      "module": "m1",
+      "topic": "m1-11"
+    },
+    {
+      "anchor": "#pack-m1-11-trees",
+      "id": "pack-m1-11-trees",
+      "line": 1338,
+      "summary": "**Audit source:** `m1-11-Complexité algorithmique.md`",
+      "module": "m1",
+      "topic": "m1-11"
+    },
+    {
+      "anchor": "#pack-m1-11-amortized",
+      "id": "pack-m1-11-amortized",
+      "line": 1378,
+      "summary": "**Audit source:** `m1-11-Complexité algorithmique.md`",
+      "module": "m1",
+      "topic": "m1-11"
+    },
+    {
+      "anchor": "#pack-m1-12-common-errors",
+      "id": "pack-m1-12-common-errors",
+      "line": 1389,
+      "summary": "**Audit source:** `m1-12-Les erreurs communes.md`",
+      "module": "m1",
+      "topic": "m1-12"
+    },
+    {
+      "anchor": "#pack-m1-13-style-guide",
+      "id": "pack-m1-13-style-guide",
+      "line": 1448,
+      "summary": "**Audit source:** `m1-13-Présentation du pseudocode.md`",
+      "module": "m1",
+      "topic": "m1-13"
+    },
+    {
+      "anchor": "#pack-m1-14-meta",
+      "id": "pack-m1-14-meta",
+      "line": 1590,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    },
+    {
+      "anchor": "#pack-m1-14-ex01",
+      "id": "pack-m1-14-ex01",
+      "line": 1604,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    },
+    {
+      "anchor": "#pack-m1-14-ex02",
+      "id": "pack-m1-14-ex02",
+      "line": 1643,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    },
+    {
+      "anchor": "#pack-m1-14-ex03",
+      "id": "pack-m1-14-ex03",
+      "line": 1676,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    },
+    {
+      "anchor": "#pack-m1-14-ex04",
+      "id": "pack-m1-14-ex04",
+      "line": 1699,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    },
+    {
+      "anchor": "#pack-m1-14-ex05",
+      "id": "pack-m1-14-ex05",
+      "line": 1752,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    },
+    {
+      "anchor": "#pack-m1-14-ex06",
+      "id": "pack-m1-14-ex06",
+      "line": 1773,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    },
+    {
+      "anchor": "#pack-m1-14-ex07",
+      "id": "pack-m1-14-ex07",
+      "line": 1804,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    },
+    {
+      "anchor": "#pack-m1-14-ex08",
+      "id": "pack-m1-14-ex08",
+      "line": 1844,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    },
+    {
+      "anchor": "#pack-m1-14-ex09",
+      "id": "pack-m1-14-ex09",
+      "line": 1934,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    },
+    {
+      "anchor": "#pack-m1-14-ex10",
+      "id": "pack-m1-14-ex10",
+      "line": 2000,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    },
+    {
+      "anchor": "#pack-m1-14-ex11",
+      "id": "pack-m1-14-ex11",
+      "line": 2029,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    },
+    {
+      "anchor": "#pack-m1-14-ex12",
+      "id": "pack-m1-14-ex12",
+      "line": 2055,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    },
+    {
+      "anchor": "#pack-m1-14-ex13",
+      "id": "pack-m1-14-ex13",
+      "line": 2082,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    },
+    {
+      "anchor": "#pack-m1-14-ex14",
+      "id": "pack-m1-14-ex14",
+      "line": 2110,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    },
+    {
+      "anchor": "#pack-m1-14-ex15",
+      "id": "pack-m1-14-ex15",
+      "line": 2140,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    },
+    {
+      "anchor": "#pack-m1-14-ex16",
+      "id": "pack-m1-14-ex16",
+      "line": 2172,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    },
+    {
+      "anchor": "#pack-m1-14-ex17",
+      "id": "pack-m1-14-ex17",
+      "line": 2186,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    },
+    {
+      "anchor": "#pack-m1-14-ex18",
+      "id": "pack-m1-14-ex18",
+      "line": 2200,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    },
+    {
+      "anchor": "#pack-m1-14-ex19",
+      "id": "pack-m1-14-ex19",
+      "line": 2214,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    },
+    {
+      "anchor": "#pack-m1-14-ex20",
+      "id": "pack-m1-14-ex20",
+      "line": 2228,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    },
+    {
+      "anchor": "#pack-m1-14-ex21",
+      "id": "pack-m1-14-ex21",
+      "line": 2246,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    },
+    {
+      "anchor": "#pack-m1-14-ex22",
+      "id": "pack-m1-14-ex22",
+      "line": 2262,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    },
+    {
+      "anchor": "#pack-m1-14-ex23",
+      "id": "pack-m1-14-ex23",
+      "line": 2276,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    },
+    {
+      "anchor": "#pack-m1-14-ex24",
+      "id": "pack-m1-14-ex24",
+      "line": 2294,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    },
+    {
+      "anchor": "#pack-m1-14-ex25",
+      "id": "pack-m1-14-ex25",
+      "line": 2317,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    },
+    {
+      "anchor": "#pack-m1-14-ex26",
+      "id": "pack-m1-14-ex26",
+      "line": 2339,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    },
+    {
+      "anchor": "#pack-m1-14-ex27",
+      "id": "pack-m1-14-ex27",
+      "line": 2353,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    },
+    {
+      "anchor": "#pack-m1-14-ex28",
+      "id": "pack-m1-14-ex28",
+      "line": 2382,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    },
+    {
+      "anchor": "#pack-m1-14-ex29",
+      "id": "pack-m1-14-ex29",
+      "line": 2410,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    },
+    {
+      "anchor": "#pack-m1-14-ex30",
+      "id": "pack-m1-14-ex30",
+      "line": 2439,
+      "summary": "**Audit source:** `m1-14-Exercices sur les algorithmes.md`",
+      "module": "m1",
+      "topic": "m1-14"
+    }
+  ]
+}

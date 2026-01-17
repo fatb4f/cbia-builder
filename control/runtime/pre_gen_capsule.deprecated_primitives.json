@@ -1,0 +1,37 @@
+{
+  "version": "v0.2.0",
+  "scope_id": "inf1220-refactor",
+  "generated_at": "2026-01-17T19:25:19Z",
+  "deprecated_workflow_primitives": {
+    "inputs_to_eliminate": [
+      "cbia-content/inf1220/syllabus/**",
+      "cbia-content/inf1220/syllabus/m1/raw/**",
+      "cbia-content/inf1220/syllabus/m1/merged/**",
+      "cbia-content/inf1220/syllabus/m1/pdf/**"
+    ],
+    "outputs_to_eliminate": [
+      "control/artifacts/formal_objectives.json",
+      "control/artifacts/pointer_map.json",
+      "control/artifacts/math_recall_map.json",
+      "control/artifacts/objective_dependency_dag.json",
+      "control/artifacts/execution_dag.json",
+      "cbia-content/inf1220/objectives/tp1.extracted.json",
+      "cbia-content/inf1220/drills/**",
+      "cbia-content/inf1220/theory/**",
+      "cbia-content/inf1220/learning_flow/**",
+      "cbia-content/inf1220/eval/**"
+    ],
+    "pipeline_nodes_to_remove_or_disable": [
+      "Syllabus regen (raw/merged)",
+      "TP1 drill bank generation",
+      "Theory generation",
+      "Learning flow builder",
+      "TP1 eval summary builder"
+    ],
+    "replacement_primitives": [
+      "control/authority/inf1220_m1_pointer_pack.sanitized.md",
+      "control/artifacts/inf1220/m1.pointer_pack.anchor_index.json",
+      "cbia-content/inf1220/objectives/m1.objectives.json"
+    ]
+  }
+}

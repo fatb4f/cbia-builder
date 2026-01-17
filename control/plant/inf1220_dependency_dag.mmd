@@ -1,0 +1,10 @@
+flowchart TD
+  AUTH_POINTER_PACK["AUTH_POINTER_PACK
+control/authority/inf1220_m1_pointer_pack.sanitized.md"]
+  ANCHOR_INDEX["ANCHOR_INDEX
+control/artifacts/inf1220/m1.pointer_pack.anchor_index.json"]
+  MODULE_OBJECTIVES_M1["MODULE_OBJECTIVES_M1
+cbia-content/inf1220/objectives/m1.objectives.json"]
+  ANCHOR_INDEX --> AUTH_POINTER_PACK
+  MODULE_OBJECTIVES_M1 --> AUTH_POINTER_PACK
+  MODULE_OBJECTIVES_M1 --> ANCHOR_INDEX

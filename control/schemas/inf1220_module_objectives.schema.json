@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cbia://schemas/inf1220/module_objectives.schema.json",
+  "title": "INF1220 Module Objectives (with math_recalls)",
+  "type": "object",
+  "required": [
+    "version",
+    "module_id",
+    "pointer_pack",
+    "objectives"
+  ],
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "module_id": {
+      "type": "string",
+      "pattern": "^m\\\\d+$"
+    },
+    "generated_at": {
+      "type": "string"
+    },
+    "pointer_pack": {
+      "type": "object",
+      "required": [
+        "pack_id",
+        "source_path"
+      ],
+      "properties": {
+        "pack_id": {
+          "type": "string"
+        },
+        "source_path": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "objectives": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "module_id",
+          "topic",
+          "text",
+          "pointer_anchors",
+          "math_recalls"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "module_id": {
+            "type": "string"
+          },
+          "topic": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 3
+          },
+          "scope_tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "pointer_anchors": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^#pack-[A-Za-z0-9\\\\-]+$"
+            }
+          },
+          "math_recalls": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "topic",
+                "minimal_statement",
+                "why_needed",
+                "pointer_anchor"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "topic": {
+                  "type": "string"
+                },
+                "minimal_statement": {
+                  "type": "string"
+                },
+                "why_needed": {
+                  "type": "string"
+                },
+                "pointer_anchor": {
+                  "type": "string",
+                  "pattern": "^#pack-[A-Za-z0-9\\\\-]+$"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
