@@ -1,0 +1,129 @@
+{
+  "version": "v0.1.0",
+  "scope_id": "inf1220-tp1",
+  "mappings": [
+    {
+      "objective_id": "INF1220-TP1-O-01",
+      "math_recalls": [
+        {
+          "math_topic_id": "logic.truth_tables",
+          "recall_only": true,
+          "confidence": 0.8,
+          "evidence": [
+            {
+              "kind": "lexical_match",
+              "ref": {
+                "source": "master-math-doc",
+                "anchor": "#pack-math-logic"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "objective_id": "INF1220-TP1-O-02",
+      "math_recalls": [
+        {
+          "math_topic_id": "logic.truth_tables",
+          "recall_only": true,
+          "confidence": 0.8,
+          "evidence": [
+            {
+              "kind": "lexical_match",
+              "ref": {
+                "source": "master-math-doc",
+                "anchor": "#pack-math-logic"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "objective_id": "INF1220-TP1-O-03",
+      "math_recalls": [
+        {
+          "math_topic_id": "logic.truth_tables",
+          "recall_only": true,
+          "confidence": 0.8,
+          "evidence": [
+            {
+              "kind": "lexical_match",
+              "ref": {
+                "source": "master-math-doc",
+                "anchor": "#pack-math-logic"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "objective_id": "INF1220-TP1-O-04",
+      "math_recalls": [
+        {
+          "math_topic_id": "logic.truth_tables",
+          "recall_only": true,
+          "confidence": 0.8,
+          "evidence": [
+            {
+              "kind": "lexical_match",
+              "ref": {
+                "source": "master-math-doc",
+                "anchor": "#pack-math-logic"
+              }
+            }
+          ]
+        },
+        {
+          "math_topic_id": "logic.propositions",
+          "recall_only": true,
+          "confidence": 0.6,
+          "evidence": [
+            {
+              "kind": "lexical_match",
+              "ref": {
+                "source": "master-math-doc",
+                "anchor": "#pack-math-logic"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "objective_id": "INF1220-TP1-O-05",
+      "math_recalls": [
+        {
+          "math_topic_id": "logic.truth_tables",
+          "recall_only": true,
+          "confidence": 0.8,
+          "evidence": [
+            {
+              "kind": "lexical_match",
+              "ref": {
+                "source": "master-math-doc",
+                "anchor": "#pack-math-logic"
+              }
+            }
+          ]
+        },
+        {
+          "math_topic_id": "logic.propositions",
+          "recall_only": true,
+          "confidence": 0.6,
+          "evidence": [
+            {
+              "kind": "lexical_match",
+              "ref": {
+                "source": "master-math-doc",
+                "anchor": "#pack-math-logic"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "version": "v0.1.0",
+  "scope_id": "inf1220-tp1",
+  "nodes": [
+    {
+      "objective_id": "INF1220-TP1-O-01"
+    },
+    {
+      "objective_id": "INF1220-TP1-O-02"
+    },
+    {
+      "objective_id": "INF1220-TP1-O-03"
+    },
+    {
+      "objective_id": "INF1220-TP1-O-04"
+    },
+    {
+      "objective_id": "INF1220-TP1-O-05"
+    }
+  ],
+  "edges": []
+}
