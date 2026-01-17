@@ -2,9 +2,7 @@
 
 This repo is a **single-source, auditable build ledger** for CBIA generation.
 
-It hosts two flavors:
-- `cbia-contentless/` — ramps driven by **constraints**
-- `cbia-content/` — course instances driven by **syllabus**
+It hosts course instances driven by **syllabus** under `cbia-content/`.
 
 All stages are committed:
 - `constraints/` or `syllabus/` (inputs)

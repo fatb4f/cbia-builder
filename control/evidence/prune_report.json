@@ -1,0 +1,67 @@
+{
+  "prune_id": "inf1220-prune-deprecated-and-unused/v0.1.0",
+  "removed": [
+    {
+      "path": "cbia-content/inf1220/syllabus/Programmation Java en ligne - Introduction #U00e0 la programmation.md",
+      "reason": "denylist"
+    },
+    {
+      "path": "cbia-content/inf1220/syllabus/m1/raw/Travail not#U00e9 1.md",
+      "reason": "denylist"
+    },
+    {
+      "path": "cbia-content/inf1220/syllabus/m1/raw/m1-02-Mod#U00e8le du cours.md",
+      "reason": "denylist"
+    },
+    {
+      "path": "cbia-content/inf1220/syllabus/m1/raw/m1-04-Auto#U00e9valuation.md",
+      "reason": "denylist"
+    },
+    {
+      "path": "cbia-content/inf1220/syllabus/m1/raw/m1-05-Java pas #U00e0 pas.md",
+      "reason": "denylist"
+    },
+    {
+      "path": "cbia-content/inf1220/syllabus/m1/raw/m1-10-Les probl#U00e8mes difficiles.md",
+      "reason": "denylist"
+    },
+    {
+      "path": "cbia-content/inf1220/syllabus/m1/raw/m1-11-Complexit#U00e9 algorithmique.md",
+      "reason": "denylist"
+    },
+    {
+      "path": "cbia-content/inf1220/syllabus/m1/raw/m1-13-Pr#U00e9sentation du pseudocode.md",
+      "reason": "denylist"
+    },
+    {
+      "path": "cbia-content/inf1250/syllabus/m1/original_fr/inf1250-M1_ V#U00e9rifier et pratiquer _ TELUQ.pdf",
+      "reason": "denylist"
+    },
+    {
+      "path": "cbia-content/inf1250/syllabus/m2/orginal_fr/inf1250_ D#U00e9marrer _ TELUQ.pdf",
+      "reason": "denylist"
+    },
+    {
+      "path": "cbia-content/inf1250/syllabus/m2/orginal_fr/inf1250_ R#U00e9aliser le travail pratique 1 _ TELUQ.pdf",
+      "reason": "denylist"
+    },
+    {
+      "path": "cbia-content/inf1250/syllabus/m2/orginal_fr/inf1250_ V#U00e9rifier et pratiquer _ TELUQ.pdf",
+      "reason": "denylist"
+    },
+    {
+      "path": "cbia-contentless",
+      "reason": "unused"
+    },
+    {
+      "path": "reports/cbia-builder-ramp-001-report.md",
+      "reason": "unused"
+    }
+  ],
+  "quarantined": [],
+  "post_checks": {
+    "verify_repo_mode_b": "PASS",
+    "verify_material": "PASS",
+    "pytest": "PASS"
+  }
+}
