@@ -14,3 +14,6 @@ check-material PROJECT:
 
 update-stage PROJECT STAGE:
   uv run python scripts/update_stage.py --project {{PROJECT}} --stage {{STAGE}}
+
+verify-repo:
+  uv run python tools/verify_repo_mode_b.py

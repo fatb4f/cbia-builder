@@ -1,0 +1,30 @@
+{
+  "deprecated_id": "inf1220-deprecated-outputs/v0.1.0",
+  "mode": "B",
+  "deny_globs": [
+    "dist/**",
+    "build/**",
+    "dist/**/theory_blocks.json",
+    "dist/**/drill_blocks.json",
+    "dist/**/learning_flow.json",
+    "dist/**/eval_summary.json",
+    "dist/**/tp1.extracted.json",
+    "build/**/theory_blocks.json",
+    "build/**/drill_blocks.json",
+    "build/**/learning_flow.json",
+    "build/**/eval_summary.json",
+    "build/**/tp1.extracted.json",
+    "**/*#U00e*",
+    "**/__MACOSX/**",
+    "**/.DS_Store"
+  ],
+  "deny_paths": [
+    "execution_dag.json",
+    "dependency.graph.json"
+  ],
+  "notes": [
+    "Block legacy TP1 promotables from deprecated dist/ or build/ outputs.",
+    "Prevent reintroduction of repo-root DAG views that are no longer authoritative.",
+    "Reject encoding artifacts (#U00e) and macOS unzip artifacts (.__DS_Store, __MACOSX)."
+  ]
+}
