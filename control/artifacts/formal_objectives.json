@@ -1,0 +1,73 @@
+{
+  "version": "v0.1.0",
+  "scope_id": "inf1220-tp1",
+  "objectives": [
+    {
+      "objective_id": "INF1220-TP1-O-01",
+      "title": "Design an efficient pseudocode algorithm that decides whether the sum of a positive-number array exceeds 100, using early termination and handling extreme edge cases.",
+      "capability": "Design an efficient pseudocode algorithm that decides whether the sum of a positive-number array exceeds 100, using early termination and handling extreme edge cases.",
+      "authority_refs": [
+        {
+          "source": "cbia-content/inf1220/syllabus/m1/raw/Travail not#U00e9 1.md",
+          "anchor": "Premier probl\u00e8me (statement)"
+        },
+        {
+          "source": "cbia-content/inf1220/syllabus/m1/raw/Travail not#U00e9 1.md",
+          "anchor": "Premier probl\u00e8me \u2192 Indice 3 (edge case: empty array)"
+        },
+        {
+          "source": "cbia-content/inf1220/syllabus/m1/raw/Travail not#U00e9 1.md",
+          "anchor": "Premier probl\u00e8me \u2192 Indice 4 (edge case: very large array)"
+        }
+      ]
+    },
+    {
+      "objective_id": "INF1220-TP1-O-02",
+      "title": "Produce precise, readable, language-agnostic pseudocode (not Java/Python) with clear inputs, variables, and outputs.",
+      "capability": "Produce precise, readable, language-agnostic pseudocode (not Java/Python) with clear inputs, variables, and outputs.",
+      "authority_refs": [
+        {
+          "source": "cbia-content/inf1220/syllabus/m1/raw/Travail not#U00e9 1.md",
+          "anchor": "Premier probl\u00e8me (format requirement)"
+        }
+      ]
+    },
+    {
+      "objective_id": "INF1220-TP1-O-03",
+      "title": "Execute pseudocode rigorously by tracing it line-by-line and reporting variable values at each step.",
+      "capability": "Execute pseudocode rigorously by tracing it line-by-line and reporting variable values at each step.",
+      "authority_refs": [
+        {
+          "source": "cbia-content/inf1220/syllabus/m1/raw/Travail not#U00e9 1.md",
+          "anchor": "Premier probl\u00e8me (execution trace requirement)"
+        }
+      ]
+    },
+    {
+      "objective_id": "INF1220-TP1-O-04",
+      "title": "Diagnose and clearly explain a logical error in given pseudocode (FizzBuzz variant) and provide a corrected version.",
+      "capability": "Diagnose and clearly explain a logical error in given pseudocode (FizzBuzz variant) and provide a corrected version.",
+      "authority_refs": [
+        {
+          "source": "cbia-content/inf1220/syllabus/m1/raw/Travail not#U00e9 1.md",
+          "anchor": "Second probl\u00e8me (context)"
+        },
+        {
+          "source": "cbia-content/inf1220/syllabus/m1/raw/Travail not#U00e9 1.md",
+          "anchor": "Second probl\u00e8me (tasks: explain error, correct)"
+        }
+      ]
+    },
+    {
+      "objective_id": "INF1220-TP1-O-05",
+      "title": "Compare executions of original versus corrected pseudocode and summarize iterative behavior to highlight logical differences.",
+      "capability": "Compare executions of original versus corrected pseudocode and summarize iterative behavior to highlight logical differences.",
+      "authority_refs": [
+        {
+          "source": "cbia-content/inf1220/syllabus/m1/raw/Travail not#U00e9 1.md",
+          "anchor": "Second probl\u00e8me (tasks: execute both, explain differences)"
+        }
+      ]
+    }
+  ]
+}
