@@ -1,0 +1,72 @@
+{
+  "version": "v0.2.0",
+  "dag_id": "inf1220-execution-dag",
+  "generated_at": "2026-01-17T19:25:19Z",
+  "nodes": [
+    {
+      "id": "E0_MODE",
+      "label": "Load mode/scope",
+      "outputs": [
+        "control/pipeline/mode.json"
+      ]
+    },
+    {
+      "id": "E1_PREGEN",
+      "label": "PRE-GEN: lock authority + emit capsule",
+      "outputs": [
+        "control/runtime/pre_gen_capsule.json"
+      ]
+    },
+    {
+      "id": "E2_ANCHORS",
+      "label": "Derive anchor index from pointer pack",
+      "outputs": [
+        "control/artifacts/inf1220/m1.pointer_pack.anchor_index.json"
+      ]
+    },
+    {
+      "id": "E3_OBJECTIVES",
+      "label": "Emit module objectives (with math_recalls)",
+      "outputs": [
+        "cbia-content/inf1220/objectives/m1.objectives.json"
+      ]
+    },
+    {
+      "id": "E4_CHECK",
+      "label": "Mechanical checks (schema + anchor resolution)",
+      "outputs": [
+        "control/artifacts/validation_report.json"
+      ]
+    },
+    {
+      "id": "E5_PROMOTE",
+      "label": "PROMOTE: record hashes + decision",
+      "outputs": [
+        "execution/ledger/run.ledger.json",
+        "execution/ledger/artifact_hashes.json"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "E1_PREGEN",
+      "to": "E0_MODE"
+    },
+    {
+      "from": "E2_ANCHORS",
+      "to": "E1_PREGEN"
+    },
+    {
+      "from": "E3_OBJECTIVES",
+      "to": "E2_ANCHORS"
+    },
+    {
+      "from": "E4_CHECK",
+      "to": "E3_OBJECTIVES"
+    },
+    {
+      "from": "E5_PROMOTE",
+      "to": "E4_CHECK"
+    }
+  ]
+}

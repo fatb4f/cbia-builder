@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cbia://schemas/inf1220/pointer_pack_anchor_index.schema.json",
+  "title": "Pointer Pack Anchor Index",
+  "type": "object",
+  "required": [
+    "version",
+    "pack_id",
+    "source_path",
+    "anchors"
+  ],
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "pack_id": {
+      "type": "string"
+    },
+    "source_path": {
+      "type": "string"
+    },
+    "generated_at": {
+      "type": "string"
+    },
+    "anchors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "anchor",
+          "id",
+          "line"
+        ],
+        "properties": {
+          "anchor": {
+            "type": "string",
+            "pattern": "^#pack-[A-Za-z0-9\\\\-]+$"
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^pack-[A-Za-z0-9\\\\-]+$"
+          },
+          "line": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "summary": {
+            "type": "string"
+          },
+          "module": {
+            "type": "string"
+          },
+          "topic": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,39 @@
+{
+  "version": "v0.2.0",
+  "dag_id": "inf1220-dependency-dag",
+  "generated_at": "2026-01-17T19:25:19Z",
+  "nodes": [
+    {
+      "id": "AUTH_POINTER_PACK",
+      "kind": "authority",
+      "path": "control/authority/inf1220_m1_pointer_pack.sanitized.md"
+    },
+    {
+      "id": "ANCHOR_INDEX",
+      "kind": "derived",
+      "path": "control/artifacts/inf1220/m1.pointer_pack.anchor_index.json"
+    },
+    {
+      "id": "MODULE_OBJECTIVES_M1",
+      "kind": "content",
+      "path": "cbia-content/inf1220/objectives/m1.objectives.json"
+    }
+  ],
+  "edges": [
+    {
+      "from": "ANCHOR_INDEX",
+      "to": "AUTH_POINTER_PACK",
+      "type": "depends_on"
+    },
+    {
+      "from": "MODULE_OBJECTIVES_M1",
+      "to": "AUTH_POINTER_PACK",
+      "type": "depends_on"
+    },
+    {
+      "from": "MODULE_OBJECTIVES_M1",
+      "to": "ANCHOR_INDEX",
+      "type": "depends_on"
+    }
+  ]
+}

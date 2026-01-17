@@ -1,0 +1,1250 @@
+{
+  "version": "v0.2.0",
+  "module_id": "m1",
+  "generated_at": "2026-01-17T19:25:19Z",
+  "pointer_pack": {
+    "pack_id": "inf1220-m1-pointer-pack",
+    "source_path": "control/authority/inf1220_m1_pointer_pack.sanitized.md"
+  },
+  "objectives": [
+    {
+      "id": "INF1220-M1-O-01",
+      "module_id": "m1",
+      "topic": "m1-07",
+      "text": "Prerequisites & expected prior knowledge",
+      "pointer_anchors": [
+        "#pack-m1-07-prerequisites"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-07"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-02",
+      "module_id": "m1",
+      "topic": "m1-07",
+      "text": "What an algorithm is (definition, properties, examples)",
+      "pointer_anchors": [
+        "#pack-m1-07-what-is-an-algorithm"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-07"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-03",
+      "module_id": "m1",
+      "topic": "m1-07",
+      "text": "What pseudocode is (purpose, conventions, readability)",
+      "pointer_anchors": [
+        "#pack-m1-07-what-is-pseudocode"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-07"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-04",
+      "module_id": "m1",
+      "topic": "m1-07",
+      "text": "Variables and values (assignment, initialization, basic types)",
+      "pointer_anchors": [
+        "#pack-m1-07-variables-and-values"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-07"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-05",
+      "module_id": "m1",
+      "topic": "m1-07",
+      "text": "Boolean logic (true/false, AND/OR/NOT, precedence, parentheses)",
+      "pointer_anchors": [
+        "#pack-m1-07-boolean-logic"
+      ],
+      "math_recalls": [
+        {
+          "id": "MATH-REC-M1-07-01",
+          "topic": "propositions & truth tables (formal basis for AND/OR/NOT)",
+          "minimal_statement": "See pointer-pack anchor (sanitized).",
+          "why_needed": "Prerequisite for conditions/sets/relations used in this topic.",
+          "pointer_anchor": "#pack-math-logic"
+        },
+        {
+          "id": "MATH-REC-M1-07-02",
+          "topic": "implication / equivalence as “spec language” for conditions",
+          "minimal_statement": "See pointer-pack anchor (sanitized).",
+          "why_needed": "Prerequisite for conditions/sets/relations used in this topic.",
+          "pointer_anchor": "#pack-m1-07-boolean-logic"
+        }
+      ],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-07"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-06",
+      "module_id": "m1",
+      "topic": "m1-07",
+      "text": "Conditionals in pseudocode (IF / THEN / ELSE / END IF)",
+      "pointer_anchors": [
+        "#pack-m1-07-boolean-logic"
+      ],
+      "math_recalls": [
+        {
+          "id": "MATH-REC-M1-07-01",
+          "topic": "binary relations (equivalence, order) as the model for comparisons/tests",
+          "minimal_statement": "See pointer-pack anchor (sanitized).",
+          "why_needed": "Prerequisite for conditions/sets/relations used in this topic.",
+          "pointer_anchor": "#pack-math-logic"
+        }
+      ],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-07"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-07",
+      "module_id": "m1",
+      "topic": "m1-07",
+      "text": "Programmer notation (symbolic operators: &&, ||, !)",
+      "pointer_anchors": [
+        "#pack-m1-07-programmer-notation"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-07"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-08",
+      "module_id": "m1",
+      "topic": "m1-07",
+      "text": "Loops (iteration, counters, termination conditions)",
+      "pointer_anchors": [
+        "#pack-m1-07-boolean-logic"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-07"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-09",
+      "module_id": "m1",
+      "topic": "m1-07",
+      "text": "Arrays (indexing concept, 0-based vs 1-based, access by index)",
+      "pointer_anchors": [
+        "#pack-m1-07-array"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-07"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-10",
+      "module_id": "m1",
+      "topic": "m1-07",
+      "text": "Accumulator pattern (sum/average over an array)",
+      "pointer_anchors": [
+        "#pack-m1-07-array"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-07"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-11",
+      "module_id": "m1",
+      "topic": "m1-07",
+      "text": "Flowchart ↔ pseudocode mapping (average example)",
+      "pointer_anchors": [
+        "#pack-m1-07-average-example"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-07"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-12",
+      "module_id": "m1",
+      "topic": "m1-07",
+      "text": "Translating pseudocode to real code (Java example)",
+      "pointer_anchors": [
+        "#pack-m1-07-average-example"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-07"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-13",
+      "module_id": "m1",
+      "topic": "m1-08",
+      "text": "Designing an algorithm (problem analysis: inputs, outputs, processing)",
+      "pointer_anchors": [
+        "#pack-m1-08-design"
+      ],
+      "math_recalls": [
+        {
+          "id": "MATH-REC-M1-08-01",
+          "topic": "sets as input/output domains (∅, membership, cardinality)",
+          "minimal_statement": "See pointer-pack anchor (sanitized).",
+          "why_needed": "Prerequisite for conditions/sets/relations used in this topic.",
+          "pointer_anchor": "#pack-math-sets"
+        }
+      ],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-08"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-14",
+      "module_id": "m1",
+      "topic": "m1-08",
+      "text": "Algorithm syntax (structuring pseudocode)",
+      "pointer_anchors": [
+        "#pack-m1-08-syntax"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-08"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-15",
+      "module_id": "m1",
+      "topic": "m1-08",
+      "text": "Inputs, variables, and outputs (algorithm interface)",
+      "pointer_anchors": [
+        "#pack-m1-08-io"
+      ],
+      "math_recalls": [
+        {
+          "id": "MATH-REC-M1-08-01",
+          "topic": "cartesian product (A×B) for paired inputs/outputs (tuples)",
+          "minimal_statement": "See pointer-pack anchor (sanitized).",
+          "why_needed": "Prerequisite for conditions/sets/relations used in this topic.",
+          "pointer_anchor": "#pack-m1-08-io"
+        }
+      ],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-08"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-16",
+      "module_id": "m1",
+      "topic": "m1-08",
+      "text": "Operations (arithmetic, comparison, assignment)",
+      "pointer_anchors": [
+        "#pack-m1-08-operations"
+      ],
+      "math_recalls": [
+        {
+          "id": "MATH-REC-M1-08-01",
+          "topic": "order relations (≤, <, ≥, >) and their properties (used in bounds/tests)",
+          "minimal_statement": "See pointer-pack anchor (sanitized).",
+          "why_needed": "Prerequisite for conditions/sets/relations used in this topic.",
+          "pointer_anchor": "#pack-math-relations"
+        },
+        {
+          "id": "MATH-REC-M1-08-02",
+          "topic": "number sets (ℕ, ℤ, ℚ, ℝ) as “legal value spaces” for variables",
+          "minimal_statement": "See pointer-pack anchor (sanitized).",
+          "why_needed": "Prerequisite for conditions/sets/relations used in this topic.",
+          "pointer_anchor": "#pack-math-sets"
+        },
+        {
+          "id": "MATH-REC-M1-08-03",
+          "topic": "Euclidean division / remainder (mod) for divisibility tests (TP1-style logic)",
+          "minimal_statement": "See pointer-pack anchor (sanitized).",
+          "why_needed": "Prerequisite for conditions/sets/relations used in this topic.",
+          "pointer_anchor": "#pack-math-numbers"
+        }
+      ],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-08"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-17",
+      "module_id": "m1",
+      "topic": "m1-08",
+      "text": "Worked example: count vowels in a typed word",
+      "pointer_anchors": [
+        "#pack-m1-08-example-vowels"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-08"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-18",
+      "module_id": "m1",
+      "topic": "m1-09",
+      "text": "Jump (goto) and labels (conceptual; generally avoided in modern style)",
+      "pointer_anchors": [
+        "#pack-m1-09-jump"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-09"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-19",
+      "module_id": "m1",
+      "topic": "m1-09",
+      "text": "Branching as a control structure (conditional jumps / IF logic)",
+      "pointer_anchors": [
+        "#pack-m1-09-jump"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-09"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-20",
+      "module_id": "m1",
+      "topic": "m1-09",
+      "text": "Loop as a control structure (repetition patterns)",
+      "pointer_anchors": [
+        "#pack-m1-09-loop"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-09"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-21",
+      "module_id": "m1",
+      "topic": "m1-09",
+      "text": "Composition (combining control structures)",
+      "pointer_anchors": [
+        "#pack-m1-09-composition"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-09"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-22",
+      "module_id": "m1",
+      "topic": "m1-09",
+      "text": "Ending an algorithm (termination / stop conditions)",
+      "pointer_anchors": [
+        "#pack-m1-09-ending"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-09"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-23",
+      "module_id": "m1",
+      "topic": "m1-09",
+      "text": "Executing pseudocode (step-by-step tracing)",
+      "pointer_anchors": [
+        "#pack-m1-09-tracing"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-09"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-24",
+      "module_id": "m1",
+      "topic": "m1-10",
+      "text": "Heuristic algorithm example: nearest-neighbor approach (pseudocode)",
+      "pointer_anchors": [
+        "#pack-m1-10-tsp-nearest-neighbor"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-10"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-25",
+      "module_id": "m1",
+      "topic": "m1-10",
+      "text": "Distance table (km) as input data",
+      "pointer_anchors": [
+        "#pack-m1-10-distance-table"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-10"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-26",
+      "module_id": "m1",
+      "topic": "m1-10",
+      "text": "Current-state tracking during iterative construction",
+      "pointer_anchors": [
+        "#pack-m1-10-tsp-nearest-neighbor"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-10"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-27",
+      "module_id": "m1",
+      "topic": "m1-11",
+      "text": "Big-O notation (what it expresses; growth vs input size)",
+      "pointer_anchors": [
+        "#pack-m1-11-big-o"
+      ],
+      "math_recalls": [
+        {
+          "id": "MATH-REC-M1-11-01",
+          "topic": "sequences/series + Σ intuition (counting steps → growth rates)",
+          "minimal_statement": "See pointer-pack anchor (sanitized).",
+          "why_needed": "Prerequisite for conditions/sets/relations used in this topic.",
+          "pointer_anchor": "#pack-math-series"
+        }
+      ],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-11"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-28",
+      "module_id": "m1",
+      "topic": "m1-11",
+      "text": "Examples: O(n) algorithms (linear time)",
+      "pointer_anchors": [
+        "#pack-m1-11-examples"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-11"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-29",
+      "module_id": "m1",
+      "topic": "m1-11",
+      "text": "Examples: O(n^2) algorithms (quadratic time)",
+      "pointer_anchors": [
+        "#pack-m1-11-examples"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-11"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-30",
+      "module_id": "m1",
+      "topic": "m1-11",
+      "text": "Search in a sorted array (complexity framing)",
+      "pointer_anchors": [
+        "#pack-m1-11-binary-search"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-11"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-31",
+      "module_id": "m1",
+      "topic": "m1-11",
+      "text": "Sorting (complexity framing)",
+      "pointer_anchors": [
+        "#pack-m1-11-sorting"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-11"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-32",
+      "module_id": "m1",
+      "topic": "m1-11",
+      "text": "Hash table (expected-time intuition)",
+      "pointer_anchors": [
+        "#pack-m1-11-hash-table"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-11"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-33",
+      "module_id": "m1",
+      "topic": "m1-11",
+      "text": "Same problem, different solutions: O(n^2) vs O(n)",
+      "pointer_anchors": [
+        "#pack-m1-11-examples"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-11"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-34",
+      "module_id": "m1",
+      "topic": "m1-11",
+      "text": "Trees in computer science (high-level complexity intuition)",
+      "pointer_anchors": [
+        "#pack-m1-11-trees"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-11"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-35",
+      "module_id": "m1",
+      "topic": "m1-11",
+      "text": "Amortized analysis (high-level idea)",
+      "pointer_anchors": [
+        "#pack-m1-11-amortized"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-11"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-36",
+      "module_id": "m1",
+      "topic": "m1-12",
+      "text": "Formal-looking but ambiguous pseudocode",
+      "pointer_anchors": [
+        "#pack-m1-12-common-errors"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-12"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-37",
+      "module_id": "m1",
+      "topic": "m1-12",
+      "text": "Loop condition that forces immediate termination (always-true stop condition)",
+      "pointer_anchors": [
+        "#pack-m1-12-common-errors"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-12"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-38",
+      "module_id": "m1",
+      "topic": "m1-12",
+      "text": "Non-terminating loops (infinite loops)",
+      "pointer_anchors": [
+        "#pack-m1-12-common-errors"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-12"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-39",
+      "module_id": "m1",
+      "topic": "m1-12",
+      "text": "Using undefined variables/functions (meaning must be guessed)",
+      "pointer_anchors": [
+        "#pack-m1-12-common-errors"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-12"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-40",
+      "module_id": "m1",
+      "topic": "m1-12",
+      "text": "Types/syntax look OK, but values/logic are wrong (semantic errors)",
+      "pointer_anchors": [
+        "#pack-m1-12-common-errors"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-12"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-41",
+      "module_id": "m1",
+      "topic": "m1-12",
+      "text": "Lack of rigor (careless reasoning / missing checks)",
+      "pointer_anchors": [
+        "#pack-m1-12-common-errors"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-12"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-42",
+      "module_id": "m1",
+      "topic": "m1-13",
+      "text": "Indentation",
+      "pointer_anchors": [
+        "#pack-m1-13-style-guide"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-13"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-43",
+      "module_id": "m1",
+      "topic": "m1-13",
+      "text": "Terminology (inputs/outputs/variables/functions)",
+      "pointer_anchors": [
+        "#pack-m1-13-style-guide"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-13"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-44",
+      "module_id": "m1",
+      "topic": "m1-13",
+      "text": "Comments (how/when to annotate pseudocode)",
+      "pointer_anchors": [
+        "#pack-m1-13-style-guide"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-13"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-45",
+      "module_id": "m1",
+      "topic": "m1-13",
+      "text": "Typography (naming, symbols, readability)",
+      "pointer_anchors": [
+        "#pack-m1-13-style-guide"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-13"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-46",
+      "module_id": "m1",
+      "topic": "m1-13",
+      "text": "Guide to presenting pseudocode (style/clarity)",
+      "pointer_anchors": [
+        "#pack-m1-13-style-guide"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-13"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-47",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Unique answers? (expect multiple valid solutions)",
+      "pointer_anchors": [
+        "#pack-m1-14-meta"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-48",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Software tools (you can use any, but pseudocode is tool-independent)",
+      "pointer_anchors": [
+        "#pack-m1-14-meta"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-49",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Exercise 1: Sum of an array",
+      "pointer_anchors": [
+        "#pack-m1-14-ex01"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-50",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Exercise 2: Searching for an integer",
+      "pointer_anchors": [
+        "#pack-m1-14-ex02"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-51",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Exercise 3: Sum of multiples of 3 or 5",
+      "pointer_anchors": [
+        "#pack-m1-14-ex03"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-52",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Exercise 4: Largest prime divisor",
+      "pointer_anchors": [
+        "#pack-m1-14-ex04"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-53",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Exercise 5: Tens digit",
+      "pointer_anchors": [
+        "#pack-m1-14-ex05"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-54",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Exercise 6: Error in pseudocode",
+      "pointer_anchors": [
+        "#pack-m1-14-ex06"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-55",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Exercise 7: Roots of a quadratic polynomial",
+      "pointer_anchors": [
+        "#pack-m1-14-ex07"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-56",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Exercise 8: Executing the roots algorithm",
+      "pointer_anchors": [
+        "#pack-m1-14-ex08"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-57",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Exercise 9: Base conversion",
+      "pointer_anchors": [
+        "#pack-m1-14-ex09"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-58",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Exercise 10: Test parity in base 2",
+      "pointer_anchors": [
+        "#pack-m1-14-ex10"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-59",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Exercise 11: Compute factorial",
+      "pointer_anchors": [
+        "#pack-m1-14-ex11"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-60",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Exercise 12: Reverse an array",
+      "pointer_anchors": [
+        "#pack-m1-14-ex12"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-61",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Exercise 13: Count vowels",
+      "pointer_anchors": [
+        "#pack-m1-14-ex13"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-62",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Exercise 14: Test if an integer is a palindrome",
+      "pointer_anchors": [
+        "#pack-m1-14-ex14"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-63",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Exercise 15: Min and max of an array",
+      "pointer_anchors": [
+        "#pack-m1-14-ex15"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-64",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Exercise 16: Searching in an array",
+      "pointer_anchors": [
+        "#pack-m1-14-ex16"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-65",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Exercise 17: Binary search",
+      "pointer_anchors": [
+        "#pack-m1-14-ex17"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-66",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Exercise 18: Quadratic-time algorithm",
+      "pointer_anchors": [
+        "#pack-m1-14-ex18"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-67",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Exercise 19: Efficient sorting algorithm",
+      "pointer_anchors": [
+        "#pack-m1-14-ex19"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-68",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Exercise 20: Alan Kay",
+      "pointer_anchors": [
+        "#pack-m1-14-ex20"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-69",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Exercise 21: Dahl et Nygaard",
+      "pointer_anchors": [
+        "#pack-m1-14-ex21"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-70",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Exercise 22: James Gosling",
+      "pointer_anchors": [
+        "#pack-m1-14-ex22"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-71",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Exercise 23: domaines industriels",
+      "pointer_anchors": [
+        "#pack-m1-14-ex23"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-72",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Exercise 24: Backus-Naur",
+      "pointer_anchors": [
+        "#pack-m1-14-ex24"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-73",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Exercise 25: Cycles",
+      "pointer_anchors": [
+        "#pack-m1-14-ex25"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-74",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Exercise 26: kibioctet",
+      "pointer_anchors": [
+        "#pack-m1-14-ex26"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-75",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Exercise 27: doublons",
+      "pointer_anchors": [
+        "#pack-m1-14-ex27"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-76",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Exercise 28: puissance",
+      "pointer_anchors": [
+        "#pack-m1-14-ex28"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-77",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Exercise 29: occurrences d’un caractère spécifique",
+      "pointer_anchors": [
+        "#pack-m1-14-ex29"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    },
+    {
+      "id": "INF1220-M1-O-78",
+      "module_id": "m1",
+      "topic": "m1-14",
+      "text": "Exercise 30: recherche d’une clé",
+      "pointer_anchors": [
+        "#pack-m1-14-ex30"
+      ],
+      "math_recalls": [],
+      "scope_tags": [
+        "inf1220",
+        "m1",
+        "m1-14"
+      ]
+    }
+  ]
+}
